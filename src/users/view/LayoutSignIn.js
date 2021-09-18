@@ -1,11 +1,9 @@
 import React from "react";
-import { Layout, Tabs } from "antd";
-import Sider from "antd/lib/layout/Sider";
+import { Tabs } from "antd";
 import "./styles.css";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 export default function LayoutSignIn() {
-  const { Content, Header, Sider, Footer } = Layout;
   const { TabPane } = Tabs;
 
   return (
