@@ -26,7 +26,7 @@ router.post("/", cors(), async (req, res) => {
 // READ
 router.get("/", cors(), async (req, res) => {
   const { query = {} } = req;
-  const resFind = await Restaurant.find(query, { sort: { siglas: 1 } })
+  const resFind = await Restaurant.find(query)
     .lean()
     .catch((err) => err);
   if (resFind instanceof Error) {

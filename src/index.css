@@ -12,8 +12,9 @@ code {
     monospace;
 }
 
+/*APP THINGS*/
+
 .App {
-  text-align: center;
 }
 
 .App-logo {
@@ -21,21 +22,55 @@ code {
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-header {
+  display: flex;
+  height: 5%;
+  justify-content: end;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App-body {
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
+}
+
+hr{
+background-color: black;
+border: 1px solid black;
+}
+/*Buttons*/
+
+.my-buttons{
+  color:white;
+  border-radius: 10px;
+  border: 0;
+  padding: 5px 30px 5px 30px;
+  margin: 20px 30px 20px 30px;
+}
+
+.my-buttons-header{
+  color:white;
+  border-radius: 15px;
+  border: 0;
+  padding: 5px 30px 5px 30px;
+  margin: 20px 30px 20px 30px;
+}
+
+
+.primary{
+ background-color: #20686C;
+}
+
+.secondary{
+background-color: #F8982B;
+}
+
+.secondary-font{
+  color: #F8982B;
 }
 
 .App-link {

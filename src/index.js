@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import Hello from "./hello/view";
-import RestaurantRoutes from "./restaurants/view";
+import RestaurantRoutes from "./restaurants/views/show";
 import DishesRoutes from "./dishes/view";
 import LayoutSignIn from "./users/view/LayoutSignIn";
 
