@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Form, Input, Button, notification } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
+
 import "./styles.css";
 import { signInApi } from "../api";
-export const ACCESS_TOKEN = "accessToken";
-export const REFRESH_TOKEN = "refreshToken";
+
 export default function LoginForm() {
   const [inputs, setInputs] = useState({
     email: "",

@@ -3,6 +3,7 @@ import { Form, Input, Button, notification } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import "./styles.css";
 import { signUpApi } from "../api";
+
 export default function RegisterForm() {
   const [inputs, setInputs] = useState({
     email: "",
