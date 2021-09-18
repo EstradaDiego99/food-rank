@@ -1,64 +1,52 @@
 const { Schema, model } = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
 
 const schema = new Schema({
-  /** Campo de índice, valor único para cada elemento. */
-  indexField: {
-    type: String,
-    index: true,
-    required: [true, "The index field is necessary."],
-    unique: true,
-  },
-
   /** id related to the restaurant. */
   restaurantId: {
     type: String,
     required: [true, "The restaurant id is necessary."],
   },
 
-  /** dish name. */
+  /** Name that will be displayed for the dish. */
   name: {
     type: String,
     required: [true, "The dish name is necessary."],
   },
 
-  /** dish price */
+  /** Numerical price using the currency. */
   price: {
     type: Number,
     required: false,
   },
 
-  /** dish pictures */
-  photoUrl: {
+  /** Currency used for the price. */
+  currency: {
     type: String,
-    required: [true, "The dish name is necessary."],
+    required: false,
   },
 
-  /** elo value for the ranking */
+  /** URL for the Google Cloud Instance where the picture is stored. */
+  photoUrl: {
+    type: String,
+    required: [true, "The dish photo url is necessary."],
+  },
+
+  /** ELO value for the ranking all the dishes. */
   elo: {
     type: Number,
     default: 1400,
     required: [true, "The elo is necessary."],
   },
 
-  /** tags of the dish */
+  /** Tags of the different categories the dish corresponds to. */
   tags: {
     type: [String],
     default: [],
     required: [true, "the tags are necessary"],
   },
-
- 
-
 });
 
-const uniqueErrors = {
-  indexField:
-    "Ya existe otro post con este identificador. Aquí colocas el mensaje deseado.",
-};
-schema.plugin(uniqueValidator, { message: ({ path }) => uniqueErrors[path] });
+/** Particular dish belonging to a restaurant. */
+const Dish = model("Dish", schema);
 
-/** Template entity for this example. Must be camelcase singular. */
-const Dishes = model("Dishes", schema);
-
-module.exports = Dishes;
+module.exports = Dish;

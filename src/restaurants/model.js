@@ -8,7 +8,7 @@ const schema = new Schema({
   },
 
   /** Refers to the user _id that created this restaurant. */
-  createdBy: {
+  owner: {
     type: String,
     required: false,
   },

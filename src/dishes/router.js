@@ -1,32 +1,57 @@
 const router = require("express").Router();
-const Dish = require("./model");
 const cors = require("cors");
+const { Storage } = require("@google-cloud/storage");
+const Multer = require("multer");
 
+const Dish = require("./model");
 const { extraerMensajesError } = require("../utils/functions");
 
-// CREATE
-router.post("/", cors(), async (req, res) => {
-  const data = req.body || {};
+const storage = new Storage();
+const bucket = storage.bucket(process.env.GCS_BUCKET);
 
-  // Save Dish
-  const newPlan = new Dish(data);
-  const resSave = await newPlan.save().catch((err) => err);
-  if (resSave instanceof Error) {
-    return res.status(400).json({
-      err: extraerMensajesError(resSave),
-      msg: "There was an error saving the dish.",
+const multer = Multer({
+  storage: Multer.memoryStorage(),
+  limits: {
+    fileSize: 128 * 1024 * 1024, // no larger than 128Mb, you can change as needed.
+  },
+});
+
+// CREATE
+router.post("/", cors(), multer.single("photoFile"), async (req, res, next) => {
+  if (!req.file) {
+    res.status(400).json({
+      msg: "No file was included.",
     });
+    return;
   }
 
-  return res.json({
-    msg: "This dish was saved correctly.",
+  const blob = bucket.file(req.file.originalname);
+  const blobStream = blob.createWriteStream();
+
+  blobStream.on("error", (err) => next(err));
+  blobStream.on("finish", async () => {
+    const data = req.body || {};
+    data.photoUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+    const newDish = new Dish(data);
+    const resSave = await newDish.save().catch((err) => err);
+    if (resSave instanceof Error) {
+      return res.status(400).json({
+        err: extraerMensajesError(resSave),
+        msg: "There was an error saving the dish.",
+      });
+    }
+    return res.json({
+      restaurantId: resSave._id,
+      msg: "This dish was saved correctly.",
+    });
   });
+  blobStream.end(req.file.buffer);
 });
 
 // READ
 router.get("/", cors(), async (req, res) => {
   const { query = {} } = req;
-  const resFind = await Dish.find(query, { sort: { siglas: 1 } })
+  const resFind = await Dish.find(query)
     .lean()
     .catch((err) => err);
   if (resFind instanceof Error) {

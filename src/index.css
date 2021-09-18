@@ -7,15 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 /*APP THINGS*/
-
-.App {
-}
 
 .App-logo {
   height: 40vmin;
@@ -38,39 +30,38 @@ code {
   color: black;
 }
 
-hr{
-background-color: black;
-border: 1px solid black;
+hr {
+  background-color: black;
+  border: 1px solid black;
 }
 /*Buttons*/
 
-.my-buttons{
-  color:white;
+.my-buttons {
+  color: white;
   border-radius: 10px;
   border: 0;
   padding: 5px 30px 5px 30px;
   margin: 20px 30px 20px 30px;
 }
 
-.my-buttons-header{
-  color:white;
+.my-buttons-header {
+  color: white;
   border-radius: 15px;
   border: 0;
   padding: 5px 30px 5px 30px;
   margin: 20px 30px 20px 30px;
 }
 
-
-.primary{
- background-color: #20686C;
+.primary {
+  background-color: #20686c;
 }
 
-.secondary{
-background-color: #F8982B;
+.secondary {
+  background-color: #f8982b;
 }
 
-.secondary-font{
-  color: #F8982B;
+.secondary-font {
+  color: #f8982b;
 }
 
 .App-link {
@@ -155,4 +146,42 @@ a:hover {
 .form-control:not(:placeholder-shown) + .form-label {
   transform: translate(0.5em, -4.4em);
   font-size: 0.8em;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+  display: none;
+}
+
+.custom-file,
+.custom-file > * {
+  height: 5em;
+}
+
+.custom-file-input,
+.custom-file-label {
+  cursor: pointer;
+}
+
+.custom-file-label {
+  color: white;
+  height: 5em;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding-top: 1.8em;
+  text-align: center;
+  border: rgba(0, 0, 0, 0.5) dotted 2px !important;
+  border-radius: 4px !important;
+}
+
+.loading-logo {
+  animation: loading-logo-spin infinite 2s linear;
+  margin: 0 auto;
+}
+
+@keyframes loading-logo-spin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
