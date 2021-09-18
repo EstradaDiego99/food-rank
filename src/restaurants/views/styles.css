@@ -1,0 +1,28 @@
+.arrange{
+  display: flex;
+  flex-direction: row;
+
+}
+
+.filter{
+  width: 20%;
+}
+
+.left-col{
+  width: 50%;
+  margin: 5% 5% 20px 10px;
+}
+
+.right-col{
+  width: 30%;
+  margin: 5% 0px 20px 10px;
+}
+
+.Restaurant-card {
+  border-radius: 15px;
+  height: 200px;
+  width: 95%;
+  margin: 3% 1% 2% 1%;
+  box-shadow:  -5px 5px 10px rgb(184, 184, 184);
+  padding: 15px 20px 15px 20px;
+}

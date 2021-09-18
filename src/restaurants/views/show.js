@@ -1,34 +1,65 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "../../utils/customAxios";
 import { handleError } from "../../utils/front-functions";
 
-async function loadRestaurant(id, setRestaurant) {
-  const resGet = await axios.get(`/restaurants/${id}`).catch((err) => err);
-  if (resGet instanceof Error) {
-    handleError(resGet);
-    return;
-  }
-  setRestaurant(resGet.data);
-}
+import RestaurantCard from "./restaurantCard";
+
+import "./styles.css";
+
 
 export default function RestaurantShow() {
-  const [restaurant, setRestaurant] = useState(undefined);
-
-  const { id } = useParams();
+  const [restaurants, setRestaurants] = useState();
 
   useEffect(() => {
-    loadRestaurant(id, setRestaurant);
-  }, [id]);
+    const fetchRestaurants = async()=>{
+      const resGet = await axios.get('/restaurants/').catch((err) => err);
+      if(resGet instanceof Error){
+      handleError(resGet);
+      return;
+      }
+      console.log(resGet.data);
+      setRestaurants(resGet.data);
 
-  if (!restaurant) {
-    return <></>;
-  }
+    }
+    fetchRestaurants();
+
+  }, []);
+
+  
+
 
   return (
-    <div>
-      <p>Restaurant</p>
-      <p>{restaurant.name}</p>
+    <div className="arrange">
+
+      <div className="filter">
+      
+      </div>
+
+      <div className="left-col">
+        <h2>RESTAURANTS</h2>
+        <hr></hr>
+
+      {restaurants? 
+      <div>
+        {restaurants.map((restaurant)=>{
+        return(
+          <RestaurantCard
+          name={restaurant.name}
+          />
+        )
+ 
+        })}
+      </div>
+      :
+      <h3>No restaurants found</h3>
+      }
+        
+      </div>
+
+      <div className="right-col secondary-font">
+        <h2>OUR RECOMMENDATIONS FOR YOU</h2>
+      </div>
+  
     </div>
   );
 }
