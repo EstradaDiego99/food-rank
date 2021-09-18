@@ -34,30 +34,22 @@ const schema = new Schema({
     required: [true, "The dish name is necessary."],
   },
 
-  /** Campo de tipo booleano. */
-  booleanField: {
-    type: Boolean,
-    default: true,
-    required: [true, "The boolean field is necessary."],
-  },
-
-  /** Campo de tipo numérico. */
-  numberField: {
+  /** elo value for the ranking */
+  elo: {
     type: Number,
-    required: [true, "The number field is necessary."],
+    default: 1400,
+    required: [true, "The elo is necessary."],
   },
 
-  /** Campo de tipo string. */
-  stringField: {
-    type: String,
-    required: [true, "The string field is necessary."],
+  /** tags of the dish */
+  tags: {
+    type: [String],
+    default: [],
+    required: [true, "the tags are necessary"],
   },
 
-  /** Field of type date. */
-  dateField: {
-    type: Date,
-    required: [true, "The date field is necessary."],
-  },
+ 
+
 });
 
 const uniqueErrors = {
