@@ -25,6 +25,8 @@ app.use("/api/hello", helloRouter);
 const restaurantsRouter = require("./src/restaurants/router");
 app.use("/api/restaurants", restaurantsRouter);
 
+const usersRouter = require("./src/users/router");
+app.use("/api/users", usersRouter);
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "build")));

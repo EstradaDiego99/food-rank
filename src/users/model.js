@@ -11,6 +11,7 @@ const schema = new Schema({
   email: {
     type: String,
     required: [true, "The email is necessary."],
+    unique: true,
   },
 
   /** Hash of the user password. */

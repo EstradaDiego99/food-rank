@@ -1,0 +1,64 @@
+.layout-signin_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-image: url("../../assets/login.png");
+  background-size: contain;
+}
+.layout-signin_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+.layout-signin-tabs {
+  margin: 10vh;
+  margin-top: 3vh;
+}
+.layout-signin_title {
+  margin-top: 2vh;
+  text-align: center;
+}
+.ant-tabs-tab {
+  width: 20vw;
+}
+.ant-tabs-tab-active {
+  color: #20686c !important;
+  border-top: 2px solid #20686c !important;
+  border-radius: 0px !important;
+  border-right: 0 !important;
+  border-left: 0 !important;
+}
+.ant-tabs-tab-active span {
+  color: #20686c !important;
+}
+.login-form {
+  background-color: #6bc4a6;
+  padding: 10px 50px;
+  border-radius: 20px;
+}
+.login-form__input {
+  border-radius: 15px !important;
+  padding: 10px 20px !important;
+  margin-top: 2vh !important;
+  font-size: 1.4rem;
+}
+.login-form__button {
+  width: 100%;
+  font-size: 1.4rem;
+  background-color: #20686c;
+  color: white;
+  height: 42px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.login-form__button:hover {
+  background-color: #f8982b;
+  border: none;
+  color: white;
+}
+.layout-signin_right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
