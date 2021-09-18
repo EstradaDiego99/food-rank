@@ -2,13 +2,13 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 
 import axios from "../../utils/customAxios";
-import PostForm from "./_form";
+import DishForm from "./_form";
 
-/** View for new post instance. */
-export default function PostNew() {
+/** View for creating new dish. */
+export default function DishesNew() {
   const history = useHistory();
 
-  async function savePost(post) {
+  async function saveDish(post) {
     const resPost = await axios.post("api/posts", post).catch((err) => err);
     if (resPost instanceof Error) {
       throw resPost;
@@ -23,7 +23,7 @@ export default function PostNew() {
 
   return (
     <main id="new-post" className="container-fluid">
-      <PostForm action={savePost} />
+      <DishForm action={saveDish} />
     </main>
   );
 }

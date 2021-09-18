@@ -19,7 +19,7 @@ router.post("/", cors(), async (req, res) => {
   }
 
   return res.json({
-    msg: "The dish was saved correctly.",
+    msg: "This dish was saved correctly.",
   });
 });
 
@@ -30,24 +30,24 @@ router.get("/", cors(), async (req, res) => {
     .lean()
     .catch((err) => err);
   if (resFind instanceof Error) {
-    return res.status(400).json({ msg: "Hubo un error al obtener dishes." });
+    return res
+      .status(400)
+      .json({ msg: "There was an error obtaining list of dishes." });
   }
 
   return res.json(resFind);
 });
 
-router.get("/:indexField", cors(), async (req, res) => {
-  const { indexField } = req.params;
-  const resFind = await Dish.findOne({ indexField }).catch((err) => err);
+router.get("/:_id", cors(), async (req, res) => {
+  const { _id } = req.params;
+  const resFind = await Dish.findOne({ _id }).catch((err) => err);
   if (resFind instanceof Error) {
     return res
       .status(400)
       .json({ msg: "There was an error reading from this dish." });
   }
   if (resFind === null) {
-    return res
-      .status(400)
-      .json({ msg: "No se encontró plan registrado con estas siglas." });
+    return res.status(400).json({ msg: "No dish with this id was found." });
   }
 
   const objFind = resFind.toObject();
@@ -55,16 +55,18 @@ router.get("/:indexField", cors(), async (req, res) => {
 });
 
 // UPDATE
-router.put("/:indexField", cors(), async (req, res) => {
-  const { indexField } = req.params;
-  const dishToUpdate = await Dish.findOne({ indexField }).catch((err) => err);
+router.put("/:_id", cors(), async (req, res) => {
+  const { _id } = req.params;
+  const dishToUpdate = await Dish.findOne({ _id }).catch((err) => err);
   if (dishToUpdate instanceof Error) {
     return res.status(400).json({
       msg: "There was an error looking for this dish.",
     });
   }
   if (dishToUpdate === null) {
-    return res.status(400).json({ msg: "No dish was found." });
+    return res
+      .status(400)
+      .json({ msg: "No dish with this id was found was found." });
   }
 
   const data = req.body;
@@ -83,15 +85,13 @@ router.put("/:indexField", cors(), async (req, res) => {
 });
 
 // DELETE
-router.delete("/:indexField", cors(), async (req, res) => {
-  const { indexField } = req.params;
-  const resDelete = await Dish.findOneAndDelete({ indexField }).catch(
-    (err) => err
-  );
+router.delete("/:_id", cors(), async (req, res) => {
+  const { _id } = req.params;
+  const resDelete = await Dish.findOneAndDelete({ _id }).catch((err) => err);
   if (resDelete instanceof Error) {
     return res
       .status(400)
-      .json({ msg: "There was an error removing the dish." });
+      .json({ msg: "There was an error removing this dish." });
   }
   if (resDelete === null) {
     return res.status(400).json({ msg: "This dish was not found." });

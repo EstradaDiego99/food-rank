@@ -2,19 +2,16 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./views/styles.css";
 
-import PostsIndex from "./views/index";
-import PostsNew from "./views/new";
-// import PostsEdit from "./view/edit";
+import DishesNew from "./views/new";
+// import DishesEdit from "./view/edit";
 
 /** Switch de las diferentes vistas para una entidad. */
-export default function PostsRoutes() {
-  const currRoute = "/posts";
+export default function DishesRoutes() {
+  const currRoute = "/dishes";
 
   return (
     <Switch>
-      <Route path={currRoute} exact component={PostsIndex} />
-      <Route path={`${currRoute}/new`} exact component={PostsNew} />
-      {/* <Route path={`${currRoute}/:id/edit`} component={PostsEdit} /> */}
+      <Route path={`${currRoute}/new`} exact component={DishesNew} />
     </Switch>
   );
 }

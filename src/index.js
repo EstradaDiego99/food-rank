@@ -6,6 +6,7 @@ import "./index.css";
 
 import Hello from "./hello/view";
 import RestaurantRoutes from "./restaurants/view";
+import DishesRoutes from "./dishes/view";
 
 ReactDOM.render(
   <Router>
@@ -13,6 +14,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={Hello} />
         <Route path="/restaurants" component={RestaurantRoutes} />
+        <Route path="/dishes" component={DishesRoutes} />
       </Switch>
     </StrictMode>
   </Router>,

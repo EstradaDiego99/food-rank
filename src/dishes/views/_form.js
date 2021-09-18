@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useFormState } from "../../utils/customStates";
 
 /** Template form for the different type of fields. */
-export default function PostForm({ post, action }) {
+export default function DishForm({ post, action }) {
   const history = useHistory();
 
   const booleanField = useFormState(post?.booleanField);
