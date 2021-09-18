@@ -5,14 +5,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 import Hello from "./hello/view";
-import PostsRoutes from "./posts/view";
+import RestaurantRoutes from "./restaurants/view";
 
 ReactDOM.render(
   <Router>
     <StrictMode>
       <Switch>
         <Route exact path="/" component={Hello} />
-        <Route path="/posts" component={PostsRoutes} />
+        <Route path="/restaurants" component={RestaurantRoutes} />
       </Switch>
     </StrictMode>
   </Router>,

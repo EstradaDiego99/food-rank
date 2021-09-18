@@ -5,6 +5,14 @@ const path = require("path");
 const Restaurant = require("./model");
 const MAX_RESTAURANTS = 100;
 
+function shouldAddRestaurant(obj) {
+  if (obj.city !== "Vancouver") return false;
+  if (obj.state !== "BC") return false;
+  if (!obj.categories) return false;
+  if (obj.is_open === 0) return false;
+  return obj.categories.split(", ").includes("Restaurants");
+}
+
 mongoose
   .connect(process.env.ATLAS_URI, {
     useNewUrlParser: true,
@@ -22,29 +30,29 @@ mongoose
 
     let counter = 0;
     rl.on("line", function (text) {
-      if (counter < MAX_RESTAURANTS) {
-        const obj = JSON.parse(text);
-        const {
-          business_id,
-          name,
-          address,
-          city,
-          state,
-          postal_code,
-          categories,
-        } = obj;
+      const obj = JSON.parse(text);
+      const {
+        business_id,
+        name,
+        address,
+        city,
+        state,
+        postal_code,
+        categories,
+      } = obj;
+      if (counter < MAX_RESTAURANTS && shouldAddRestaurant(obj)) {
         const newRestaurant = new Restaurant({
           name,
           yelpBusinessId: business_id,
-          tags: categories,
+          tags: categories.split(", "),
           address,
           city,
           state,
           postalCode: postal_code,
         });
         newRestaurant.save();
+        counter += 1;
       }
-      counter += 1;
     });
   })
   .catch((err) => console.log(err));

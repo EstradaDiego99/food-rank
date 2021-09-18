@@ -22,8 +22,8 @@ mongoose
 const helloRouter = require("./src/hello/router");
 app.use("/api/hello", helloRouter);
 
-const postsRouter = require("./src/posts/router");
-app.use("/api/posts", postsRouter);
+const restaurantsRouter = require("./src/restaurants/router");
+app.use("/api/restaurants", restaurantsRouter);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
