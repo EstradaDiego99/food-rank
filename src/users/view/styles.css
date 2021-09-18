@@ -62,3 +62,20 @@
   height: 100%;
   object-fit: cover;
 }
+
+@media (max-width: 767px) {
+  .layout-signin_wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-size: cover;
+  }
+  .layout-signin-tabs {
+    margin: 3vh;
+  }
+  .login-form {
+    padding: 10px 30px;
+  }
+  .ant-tabs-tab {
+    width: 44vw;
+  }
+}
