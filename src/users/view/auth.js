@@ -1,6 +1,9 @@
-import { basePath, apiVersion } from "./config";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../utils/constants";
+// import { basePath, apiVersion } from "./config";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import jwtDecode from "jwt-decode";
+
+import { basePath } from "../api";
+const apiVersion = "1.0";
 
 export function getAccessTokenApi() {
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
