@@ -7,3 +7,10 @@ export function handleError(errRes) {
   }
   alert(errRes.response?.data?.msg);
 }
+
+/** Function to convert object into a query string. */
+export function toQueryString(query) {
+  return Object.keys(query)
+    .map((key) => key + "=" + query[key])
+    .join("&");
+}
