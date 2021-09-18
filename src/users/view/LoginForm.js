@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Form, Input, Button, notification } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import "./styles.css";
+import { signInApi } from "../api";
+export const ACCESS_TOKEN = "accessToken";
+export const REFRESH_TOKEN = "refreshToken";
 export default function LoginForm() {
   const [inputs, setInputs] = useState({
     email: "",
@@ -13,9 +16,25 @@ export default function LoginForm() {
       [e.target.name]: e.target.value,
     });
   };
-
+  const login = async () => {
+    const result = await signInApi(inputs);
+    console.log(result);
+    if (result.message) {
+      notification["error"]({
+        message: result.message,
+      });
+    } else {
+      const { accessToken, refreshToken } = result;
+      localStorage.setItem(ACCESS_TOKEN, accessToken);
+      localStorage.setItem(REFRESH_TOKEN, refreshToken);
+      notification["success"]({
+        message: "Login exitoso",
+      });
+      window.location.href = "/";
+    }
+  };
   return (
-    <Form className="login-form" onChange={changeForm}>
+    <Form className="login-form" onChange={changeForm} onSubmitCapture={login}>
       <Form.Item>
         <Input
           prefix={<UserOutlined style={{ color: "#20686c75" }} />}

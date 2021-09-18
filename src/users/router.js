@@ -3,7 +3,7 @@ const User = require("./model.js");
 const cors = require("cors");
 const bcrypt = require("bcrypt-node");
 const { extraerMensajesError } = require("../utils/functions");
-
+const jwt = require("../utils/jwt");
 // CREATE - SIGN UP
 router.post("/", cors(), async (req, res) => {
   const data = req.body || {};
@@ -46,7 +46,35 @@ router.post("/", cors(), async (req, res) => {
     }
   }
 });
+// SIGN - IN
+router.post("/sign-in", cors(), async (req, res) => {
+  const params = req.body;
+  const email = params.email.toLowerCase();
+  const password = params.password;
 
+  User.findOne({ email }, (err, userStored) => {
+    if (err) {
+      res.status(500).send({ message: "Server error" });
+    } else {
+      if (!userStored) {
+        res.status(404).send({ message: "User not found" });
+      } else {
+        bcrypt.compare(password, userStored.password, (err, check) => {
+          if (err) {
+            res.status(500).send({ message: "Server error" });
+          } else if (!check) {
+            res.status(404).send({ message: "Incorrect password" });
+          } else {
+            res.status(200).send({
+              accessToken: jwt.createAccessToken(userStored),
+              refreshToken: jwt.createRefreshToken(userStored),
+            });
+          }
+        });
+      }
+    }
+  });
+});
 // READ
 /*
 router.get("/", cors(), async (req, res) => {
@@ -62,69 +90,70 @@ router.get("/", cors(), async (req, res) => {
 
   return res.json(resFind);
 });
-
+*/
 router.get("/:_id", cors(), async (req, res) => {
   const { _id } = req.params;
-  const resFind = await Restaurant.findOne({ _id }).catch((err) => err);
+  const resFind = await User.findOne({ _id }).catch((err) => err);
   if (resFind instanceof Error) {
     return res
       .status(400)
-      .json({ msg: "There was an error reading from this restaurant." });
+      .json({ msg: "There was an error reading this user." });
   }
   if (resFind === null) {
-    return res
-      .status(400)
-      .json({ msg: "No restaurant with this id was found." });
+    return res.status(400).json({ msg: "No user with this id was found." });
   }
 
   const objFind = resFind.toObject();
   return res.json(objFind);
 });
 
-// UPDATE
+// Update user
 router.put("/:_id", cors(), async (req, res) => {
   const { _id } = req.params;
-  const restToUpdate = await Restaurant.findOne({ _id }).catch((err) => err);
+  const restToUpdate = await User.findOne({ _id }).catch((err) => err);
   if (restToUpdate instanceof Error) {
     return res.status(400).json({
-      msg: "There was an error looking for this restaurant.",
+      msg: "There was an error updating this user.",
     });
   }
   if (restToUpdate === null) {
-    return res.status(400).json({ msg: "No restaurant was found." });
+    return res.status(400).json({ msg: "No user was found." });
   }
 
   const data = req.body;
   for (const [key, value] of Object.entries(data)) {
+    if (key === "password") {
+      await bcrypt.hash(value, null, null, function (err, hash) {
+        restToUpdate["password"] = hash;
+      });
+    }
     restToUpdate[key] = value;
   }
   const resUpdate = await restToUpdate.save().catch((err) => err);
   if (resUpdate instanceof Error) {
     return res.status(400).json({
       err: extraerMensajesError(resUpdate),
-      msg: "There was an error when trying to update this restaurant.",
+      msg: "There was an error when trying to update this user.",
     });
   }
 
-  return res.json("Restaurant was successfuly updated.");
+  return res.json("User was successfuly updated.");
 });
 
 // DELETE
 router.delete("/:_id", cors(), async (req, res) => {
   const { _id } = req.params;
-  const resDelete = await Restaurant.findOneAndDelete({ _id }).catch(
-    (err) => err
-  );
+  const resDelete = await User.findOneAndDelete({ _id }).catch((err) => err);
   if (resDelete instanceof Error) {
     return res
       .status(400)
-      .json({ msg: "There was an error removing the restaurant." });
+      .json({ msg: "There was an error removing the user." });
   }
   if (resDelete === null) {
-    return res.status(400).json({ msg: "This restaurant was not found." });
+    return res.status(400).json({ msg: "This user was not found." });
   }
 
-  return res.json({ msg: "Restaurant successfully removed." });
-});*/
+  return res.json({ msg: "User successfully removed." });
+});
 
 module.exports = router;

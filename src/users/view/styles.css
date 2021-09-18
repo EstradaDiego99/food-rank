@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   background-image: url("../../assets/login.png");
-  background-size: contain;
+  background-size: cover;
 }
 .layout-signin_left {
   display: flex;
