@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 import Hello from "./hello/view";
-import RestaurantRoutes from "./restaurants/views/show";
+import RestaurantRoutes from "./restaurants/view";
 import DishesRoutes from "./dishes/view";
 
 ReactDOM.render(

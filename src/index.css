@@ -42,6 +42,8 @@ hr{
 background-color: black;
 border: 1px solid black;
 }
+
+
 /*Buttons*/
 
 .my-buttons{
@@ -74,7 +76,11 @@ background-color: #F8982B;
 }
 
 .App-link {
-  color: #61dafb;
+  color: black;
+}
+
+.link{
+  color: black;
 }
 
 @keyframes App-logo-spin {
