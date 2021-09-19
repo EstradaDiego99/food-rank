@@ -23,25 +23,23 @@ export default function DishCard(props) {
             </div>
             {tags ? (
               <div className="tags">
-                {tags.map((tag, index) => {
-                  return (
-                    <div>
-                      {index < 5 && (
-                        <div>
-                          {index % 2 === 0 ? (
-                            <p className="tag green" key="tag">
-                              {tag}
-                            </p>
-                          ) : (
-                            <p className="tag blue" key="tag">
-                              {tag}
-                            </p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                {tags.map((tag, index) => (
+                  <div key={index}>
+                    {index < 5 && (
+                      <div>
+                        {index % 2 === 0 ? (
+                          <p className="tag green" key="tag">
+                            {tag}
+                          </p>
+                        ) : (
+                          <p className="tag blue" key="tag">
+                            {tag}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             ) : (
               <></>

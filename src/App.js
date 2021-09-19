@@ -8,6 +8,8 @@ import RestaurantRoutes from "./restaurants/view";
 import DishesRoutes from "./dishes/view";
 import LayoutSignIn from "./users/view/LayoutSignIn";
 
+import ProfileRecommendations from "./users/view/recommendations";
+
 import { UserContext } from "./utils/context";
 import { getAccessTokenApi } from "./users/view/auth";
 
@@ -30,6 +32,10 @@ export default function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Hello} />
+          <Route
+            path="/profile/recommendations"
+            component={ProfileRecommendations}
+          />
           <Route path="/restaurants" component={RestaurantRoutes} />
           <Route path="/dishes" component={DishesRoutes} />
           <Route path="/auth" component={LayoutSignIn} />

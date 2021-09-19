@@ -2,8 +2,32 @@ const router = require("express").Router();
 const User = require("./model.js");
 const cors = require("cors");
 const bcrypt = require("bcrypt-node");
-const { extraerMensajesError } = require("../utils/functions");
 const jwt = require("../utils/jwt");
+
+const Dish = require("../dishes/model");
+const Restaurant = require("../restaurants/model");
+const { decodeToken } = require("../utils/jwt");
+const { extraerMensajesError } = require("../utils/functions");
+
+function extractFavoriteDishes(userObj) {
+  const sortedEloDishes = new Map(
+    [...userObj.dishesELO.entries()].sort((a, b) => b[1] - a[1])
+  );
+  if (sortedEloDishes.size === 0) {
+    return [];
+  }
+  if (sortedEloDishes.size === 1) {
+    const [a] = sortedEloDishes.keys();
+    return [a];
+  }
+  if (sortedEloDishes.size === 2) {
+    const [a, b] = sortedEloDishes.keys();
+    return [a, b];
+  }
+  const [a, b, c] = sortedEloDishes.keys();
+  return [a, b, c];
+}
+
 // CREATE - SIGN UP
 router.post("/", cors(), async (req, res) => {
   const data = req.body || {};
@@ -91,6 +115,58 @@ router.get("/", cors(), async (req, res) => {
   return res.json(resFind);
 });
 */
+// READ
+router.get("/recommendedDishes", cors(), async (req, res) => {
+  const { query = {} } = req;
+  const userId = query.token ? decodeToken(query.token).id : "";
+
+  const userObj = await User.findOne({ _id: userId }).catch((err) => err);
+  if (userObj instanceof Error) {
+    return res
+      .status(400)
+      .json({ msg: "There was an error obtaining list of dishes." });
+  }
+
+  const biggestFood = extractFavoriteDishes(userObj);
+
+  const recommendations = new Set();
+
+  const users = await User.find().catch((err) => err);
+  for (const otherUserObj of users) {
+    const favorites = extractFavoriteDishes(otherUserObj);
+    for (const dish of biggestFood) {
+      if (favorites.includes(dish)) {
+        favorites.forEach((item) => {
+          recommendations.add(item);
+        });
+        break;
+      }
+    }
+  }
+
+  // Removing places already visited by user
+  for (const dish of recommendations) {
+    if (userObj.dishesELO.has(dish)) {
+      recommendations.delete(dish);
+    }
+  }
+
+  let dishRecommendations = await Dish.find({
+    _id: { $in: Array.from(recommendations) },
+  })
+    .lean()
+    .catch((err) => err);
+
+  for (const dish of dishRecommendations) {
+    const restObj = await Restaurant.findOne({ _id: dish.restaurantId })
+      .lean()
+      .catch((err) => err);
+    dish.restaurant = restObj;
+  }
+
+  return res.json(dishRecommendations || []);
+});
+
 router.get("/:_id", cors(), async (req, res) => {
   const { _id } = req.params;
   const resFind = await User.findOne({ _id }).catch((err) => err);
