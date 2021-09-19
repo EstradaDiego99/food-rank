@@ -51,6 +51,7 @@ export default function DishCard(props) {
                 ${props.price} {props.currency}
               </h5>
             </div>
+            <p>ELO: {props.elo}</p>
           </div>
           <div className="image-res-card">
             <img className="image-res" src={props.photo} alt=""></img>
