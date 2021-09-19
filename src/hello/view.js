@@ -1,25 +1,26 @@
-import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { SearchOutlined } from "@ant-design/icons";
+
 import { UserContext } from "../utils/context";
 import jwtDecode from "jwt-decode";
 import { Card, Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
 import { logout } from "../users/view/auth";
 import logo from "../assets/logo.png";
 
+import { toQueryString } from "../utils/front-functions";
+
 /** Don't forget to JS-Doc all your components to know what you're doing! */
 export default function Hello() {
+  const history = useHistory();
   const accessToken = useContext(UserContext);
   const [search, setSearch] = useState("");
+
   let user = "";
   if (accessToken === null) {
   } else {
     user = jwtDecode(accessToken);
   }
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    setSearch(e.target.value);
-  };
 
   const logoutUser = () => {
     logout();
@@ -31,7 +32,7 @@ export default function Hello() {
         {user !== "" ? (
           <>
             <Link to="/">
-              <img src={logo}></img>
+              <img src={logo} alt=""></img>
             </Link>{" "}
             <div>
               <Link to="/">
@@ -51,7 +52,7 @@ export default function Hello() {
         ) : (
           <>
             <Link to="/">
-              <img src={logo}></img>
+              <img src={logo} alt=""></img>
             </Link>
             <div>
               <Link to="/auth">
@@ -70,9 +71,17 @@ export default function Hello() {
           <Input
             prefix={<SearchOutlined />}
             placeholder="What you want to eat today"
-            onChange={handleChange}
+            onChange={(e) => setSearch(e.target.value)}
           />
-          <button className="my-buttons-header primary"> Search</button>
+          <button
+            className="my-buttons-header primary"
+            onClick={() => {
+              history.push(`/dishes?${toQueryString({ prevInput: search })}`);
+            }}
+          >
+            {" "}
+            Search
+          </button>
         </Card>
         <h1>Welcome back to YumYumRank!</h1>
         <div className="div__buttons">
