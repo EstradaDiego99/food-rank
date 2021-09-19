@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Restaurant = require("./model");
+const Dishes = require("../dishes/model");
 const cors = require("cors");
 
 const { extraerMensajesError } = require("../utils/functions");
@@ -40,6 +41,7 @@ router.get("/", cors(), async (req, res) => {
 
 router.get("/:_id", cors(), async (req, res) => {
   const { _id } = req.params;
+
   const resFind = await Restaurant.findOne({ _id }).catch((err) => err);
   if (resFind instanceof Error) {
     return res
@@ -51,9 +53,13 @@ router.get("/:_id", cors(), async (req, res) => {
       .status(400)
       .json({ msg: "No restaurant with this id was found." });
   }
+  
+  const resDishes = await Dishes.find({ restaurantId : {_id} }).catch((err) => err);
 
-  const objFind = resFind.toObject();
-  return res.json(objFind);
+  return res.json({
+    resFind,
+    resDishes,
+  });
 });
 
 // UPDATE
