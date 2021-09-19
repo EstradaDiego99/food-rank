@@ -6,6 +6,8 @@ const Multer = require("multer");
 const Dish = require("./model");
 const Review = require("../reviews/model");
 const User = require("../users/model");
+const Comparison = require("../comparisons/model");
+const Restaurant = require("../restaurants/model");
 const { extraerMensajesError } = require("../utils/functions");
 const { decodeToken } = require("../utils/jwt");
 
@@ -56,6 +58,7 @@ router.post("/", cors(), multer.single("photoFile"), async (req, res, next) => {
 router.get("/", cors(), async (req, res) => {
   const { query = {} } = req;
   const resFind = await Dish.find(query)
+    .sort({ elo: "desc" })
     .lean()
     .catch((err) => err);
   if (resFind instanceof Error) {
@@ -65,6 +68,105 @@ router.get("/", cors(), async (req, res) => {
   }
 
   return res.json(resFind);
+});
+
+// READ
+router.get("/comparisonReviews", cors(), async (req, res) => {
+  const { query = {} } = req;
+  const { dishA, dishB } = query;
+  const comparisonReviews = [];
+
+  let comparisons = await Comparison.find({ dishA, dishB })
+    .lean()
+    .catch((err) => err);
+  if (comparisons instanceof Error) {
+    return res
+      .status(400)
+      .json({ msg: "There was an error obtaining list of dishes." });
+  }
+
+  for (const comparison of comparisons) {
+    const reviewA = await Review.findOne({
+      userId: comparison.userId,
+      dishId: comparison.dishA,
+    })
+      .lean()
+      .catch((err) => err);
+    if (!reviewA) continue;
+    comparison.reviewA = reviewA.reviewMessage;
+
+    const reviewB = await Review.findOne({
+      userId: comparison.userId,
+      dishId: comparison.dishB,
+    })
+      .lean()
+      .catch((err) => err);
+    if (!reviewB) continue;
+    comparison.reviewB = reviewB.reviewMessage;
+
+    comparisonReviews.push(comparison);
+  }
+
+  comparisons = await Comparison.find({ dishA: dishB, dishB: dishA })
+    .lean()
+    .catch((err) => err);
+  if (comparisons instanceof Error) {
+    return res
+      .status(400)
+      .json({ msg: "There was an error obtaining list of dishes." });
+  }
+
+  for (const comparison of comparisons) {
+    const auxScore = comparison.dishAScore;
+    comparison.dishAScore = comparison.dishBScore;
+    comparison.dishBScore = auxScore;
+
+    const auxDish = comparison.dishA;
+    comparison.dishA = comparison.dishB;
+    comparison.dishB = auxDish;
+
+    const reviewA = await Review.findOne({
+      userId: comparison.userId,
+      dishId: comparison.dishA,
+    })
+      .lean()
+      .catch((err) => err);
+    if (!reviewA) continue;
+    comparison.reviewA = reviewA.reviewMessage;
+
+    const reviewB = await Review.findOne({
+      userId: comparison.userId,
+      dishId: comparison.dishB,
+    })
+      .lean()
+      .catch((err) => err);
+    if (!reviewB) continue;
+    comparison.reviewB = reviewB.reviewMessage;
+
+    comparisonReviews.push(comparison);
+  }
+
+  const dishAObj = await Dish.findOne({ _id: dishA })
+    .lean()
+    .catch((err) => err);
+  const dishBObj = await Dish.findOne({ _id: dishB })
+    .lean()
+    .catch((err) => err);
+
+  const restAObj = await Restaurant.findOne({ _id: dishAObj.restaurantId })
+    .lean()
+    .catch((err) => err);
+  const restBObj = await Restaurant.findOne({ _id: dishBObj.restaurantId })
+    .lean()
+    .catch((err) => err);
+
+  return res.json({
+    comparisonReviews,
+    dishAObj,
+    dishBObj,
+    restAObj,
+    restBObj,
+  });
 });
 
 router.get("/:_id", cors(), async (req, res) => {

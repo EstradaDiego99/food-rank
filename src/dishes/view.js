@@ -3,9 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import "./views/styles.css";
 
 import DishesNew from "./views/new";
+import DishesCompare from "./views/compare";
 import ShowDish from "./views/show";
 import DishIndex from "./views/index";
-// import DishesEdit from "./view/edit";
 
 /** Switch de las diferentes vistas para una entidad. */
 export default function DishesRoutes() {
@@ -15,6 +15,7 @@ export default function DishesRoutes() {
     <Switch>
       <Route exact path={`${currRoute}`} component={DishIndex} />
       <Route exact path={`${currRoute}/new`} component={DishesNew} />
+      <Route exact path={`${currRoute}/compare`} component={DishesCompare} />
       <Route exact path={`${currRoute}/:id`} component={ShowDish} />
     </Switch>
   );
