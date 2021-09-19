@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../utils/context";
 import jwtDecode from "jwt-decode";
 import { Card, Input } from "antd";
@@ -10,11 +10,16 @@ import logo from "../assets/logo.png";
 /** Don't forget to JS-Doc all your components to know what you're doing! */
 export default function Hello() {
   const accessToken = useContext(UserContext);
+  const [search, setSearch] = useState("");
   let user = "";
   if (accessToken === null) {
   } else {
     user = jwtDecode(accessToken);
   }
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setSearch(e.target.value);
+  };
 
   const logoutUser = () => {
     logout();
@@ -65,7 +70,9 @@ export default function Hello() {
           <Input
             prefix={<SearchOutlined />}
             placeholder="What you want to eat today"
+            onChange={handleChange}
           />
+          <button className="my-buttons-header primary"> Search</button>
         </Card>
         <h1>Welcome back to YumYumRank!</h1>
         <div className="div__buttons">
