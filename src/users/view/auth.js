@@ -1,6 +1,6 @@
-import { basePath, apiVersion } from "./config";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../utils/constants";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import jwtDecode from "jwt-decode";
+const basePath = "http://localhost:5000";
 
 export function getAccessTokenApi() {
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -18,7 +18,7 @@ export function getRefreshTokenApi() {
   return willExpireToken(refreshToken ? null : refreshToken);
 }
 export function refreshAccessTokenApi(refreshToken) {
-  const url = `${basePath}/${apiVersion}/refresh-acess-token`;
+  const url = `${basePath}/refresh-acess-token`;
   const bodyObj = {
     refreshToken: refreshToken,
   };
