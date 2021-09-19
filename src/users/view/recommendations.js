@@ -43,6 +43,21 @@ export default function ProfileRecommendations() {
           <h2>RECOMMENDATIONS FOR YOU</h2>
           <hr></hr>
 
+          <div>
+            <p
+              style={{
+                textAlign: "center",
+                margin: "1em",
+                fontSize: "1.5em",
+                fontWeight: "bold",
+              }}
+            >
+              The following list of dishes is ordered based on your personal
+              ranking, how they align with another users and which
+              recomendations they may have for you
+            </p>
+          </div>
+
           {dishes && dishes.length > 0 ? (
             <div>
               {dishes.map((dish) => (
