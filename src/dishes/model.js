@@ -40,7 +40,7 @@ const schema = new Schema({
 
   /** Tags of the different categories the dish corresponds to. */
   tags: {
-    type: [String],
+    type: [{ type: String }],
     default: [],
     required: [true, "the tags are necessary"],
   },

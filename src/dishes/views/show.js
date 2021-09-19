@@ -3,9 +3,10 @@ import { useParams, useHistory } from "react-router-dom";
 
 import axios from "../../utils/customAxios";
 import { handleError } from "../../utils/front-functions";
+import { UserContext } from "../../utils/context";
 
 import ReviewForm from "./_reviewForm";
-import { UserContext } from "../../utils/context";
+import TagsList from "../../shared/tags";
 
 async function loadDish(id, setDishes) {
   const resGet = await axios.get(`/dishes/${id}`).catch((err) => err);
@@ -39,12 +40,16 @@ export default function ShowDish() {
     return <></>;
   }
 
+  console.log(dish);
+
   return (
     <main>
       <p>{dish.name}</p>
       <img src={dish.photoUrl} alt="" />
       <p>{dish.price}</p>
       <p>{dish.currency}</p>
+
+      <TagsList tags={dish.tags} />
 
       <button
         type="button"

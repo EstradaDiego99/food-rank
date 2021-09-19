@@ -32,6 +32,7 @@ router.post("/", cors(), multer.single("photoFile"), async (req, res, next) => {
   blobStream.on("finish", async () => {
     const data = req.body || {};
     data.photoUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+    data.tags = data.tags.split(",");
     const newDish = new Dish(data);
     const resSave = await newDish.save().catch((err) => err);
     if (resSave instanceof Error) {
