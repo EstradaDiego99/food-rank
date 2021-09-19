@@ -8,6 +8,7 @@ import { UserContext } from "../../utils/context";
 
 import ReviewForm from "./_reviewForm";
 import TagsList from "../../shared/tags";
+import Header from "../../hello/header";
 
 async function loadDish(id, setDishes) {
   const resGet = await axios.get(`/dishes/${id}`).catch((err) => err);
@@ -48,6 +49,7 @@ export default function ShowDish() {
 
   return (
     <main>
+      <Header></Header>
       <div className="image-dish">
         <img className="img-dish" src={dish.photoUrl} alt="" />
       </div>

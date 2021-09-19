@@ -12,7 +12,7 @@ export default function RestaurantAdmin() {
   const [restaurant, setRestaurant] = useState(undefined);
 
   const { id } = useParams();
-
+  console.log("holaa", id);
   useEffect(() => {
     async function loadRestaurant() {
       const resGet = await axios.get(`/restaurants/${id}`).catch((err) => err);
@@ -20,7 +20,7 @@ export default function RestaurantAdmin() {
         handleError(resGet);
         return;
       }
-      setRestaurant(resGet.data);
+      setRestaurant(resGet.data.resFind);
       console.log(resGet.data);
     }
 

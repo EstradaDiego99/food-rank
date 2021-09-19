@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import imgLoading from "../../assets/loading.svg";
-
 import { useFormState } from "../../utils/customStates";
 import Tags from "../../shared/tags";
 import Header from "../../hello/header";
@@ -9,7 +8,6 @@ import Header from "../../hello/header";
 /** Template form for the different type of fields. */
 export default function DishForm({ dish, action }) {
   const history = useHistory();
-
   const restaurantId = useFormState(dish?.restaurantId);
   const name = useFormState(dish?.name);
   const price = useFormState(dish?.price);
