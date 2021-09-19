@@ -24,7 +24,7 @@ export default function RestaurantCard (props) {
                 <div>
                 {index <5 && 
                   <div>
-                    {(index%2 == 0)? 
+                    {(index%2 === 0)? 
                       <p className="tag primary" key="tag">{tag}</p>
                       :
                       <p className="tag secondary" key="tag">{tag}</p>
@@ -46,7 +46,7 @@ export default function RestaurantCard (props) {
           </div>
         </div>
         <div className="image-res-card">
-          <img className="image-res" src={props.photo}></img>
+          <img alt="" className="image-res" src={props.photo}></img>
         </div>
       </div>
     </div>
