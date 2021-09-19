@@ -34,6 +34,9 @@ app.use("/api/dishes", dishesRouter);
 const reviewsRouter = require("./src/reviews/router");
 app.use("/api/reviews", reviewsRouter);
 
+const comparisonsRouter = require("./src/comparisons/router");
+app.use("/api/comparisons", comparisonsRouter);
+
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "build")));
