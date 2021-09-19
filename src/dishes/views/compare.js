@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import Header from "../../hello/header";
+import { EnvironmentOutlined } from "@ant-design/icons";
 import axios from "../../utils/customAxios";
 import { handleError } from "../../utils/front-functions";
 import { toQueryString } from "../../utils/front-functions";
@@ -11,19 +12,59 @@ function useQuery() {
 
 function displayScorePoints(scoreA, scoreB) {
   if (scoreB === 1) {
-    return "....*";
+    return (
+      <div className="d-flex">
+        <div className="circle-comp"></div>
+        <div className="circle-comp "></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp selected"></div>
+      </div>
+    );
   }
   if (scoreB === 0.75) {
-    return "...*.";
+    return (
+      <div className="d-flex">
+        <div className="circle-comp"></div>
+        <div className="circle-comp "></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp selected"></div>
+        <div className="circle-comp"></div>
+      </div>
+    );
   }
   if (scoreB === 0.5) {
-    return "..*..";
+    return (
+      <div className="d-flex">
+        <div className="circle-comp"></div>
+        <div className="circle-comp "></div>
+        <div className="circle-comp selected"></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp"></div>
+      </div>
+    );
   }
   if (scoreB === 0.25) {
-    return ".*...";
+    return (
+      <div className="d-flex">
+        <div className="circle-comp"></div>
+        <div className="circle-comp selected"></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp"></div>
+      </div>
+    );
   }
   if (scoreB === 0) {
-    return "*....";
+    return (
+      <div className="d-flex">
+        <div className="circle-comp selected"></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp"></div>
+        <div className="circle-comp"></div>
+      </div>
+    );
   }
 }
 
@@ -59,24 +100,31 @@ export default function DishesCompare() {
   }, []);
 
   return (
-    <div>
-      <div className="d-flex">
-        <p>{dishAObj.name}</p>
-        <p>{dishBObj.name}</p>
+    <div className="cont-comparisons">
+      <Header />
+      <div className="d-flex compare-names mt-5">
+        <h2>{dishAObj.name}</h2>
+        <p> vs</p>
+
+        <h2>{dishBObj.name}</h2>
       </div>
 
-      <div className="d-flex">
-        <p>{restAObj.name}</p>
-        <p>{restBObj.name}</p>
+      <div className="d-flex justify-content-around align-items-center compare-restaurants">
+        <h3>
+          <EnvironmentOutlined /> {restAObj.name}
+        </h3>
+        <h3>
+          <EnvironmentOutlined /> {restBObj.name}
+        </h3>
       </div>
 
       {comparisonReviews.map((comprRev) => (
-        <figure className="d-flex">
-          <p>{comprRev.reviewA}</p>
+        <figure className="d-flex justify-content-around">
+          <p style={{ fontWeight: "bold" }}>{comprRev.reviewA}</p>
           <div>
             {displayScorePoints(comprRev.dishAScore, comprRev.dishBScore)}
           </div>
-          <p>{comprRev.reviewB}</p>
+          <p style={{ fontWeight: "bold" }}>{comprRev.reviewB}</p>
         </figure>
       ))}
     </div>

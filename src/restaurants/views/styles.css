@@ -124,6 +124,15 @@
   .flex-none {
     display: block !important;
   }
+  .arrange {
+    flex-direction: column !important;
+  }
+  .left-col {
+    width: 100% !important;
+  }
+  .dishes-res {
+    margin: 0 !important;
+  }
 }
 
 .pictures-res {
