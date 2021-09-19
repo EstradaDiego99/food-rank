@@ -4,10 +4,10 @@ import Tags from "../../shared/tags";
 import { useFormState } from "../../utils/customStates";
 import { stringsMatch } from "../../utils/front-functions";
 
-export default function DishesFilter({ dishes, setFilteredDishes }) {
+export default function DishesFilter({ dishes, setFilteredDishes, prevInput }) {
   const [dishName, setDishName] = useState("");
   const [restName, setRestName] = useState("");
-  const tags = useFormState("");
+  const tags = useFormState([prevInput] || []);
 
   useEffect(() => {
     const filteredDishes = dishes.filter((dish) => {
@@ -18,7 +18,6 @@ export default function DishesFilter({ dishes, setFilteredDishes }) {
       }
       return true;
     });
-    console.log(filteredDishes);
     setFilteredDishes(filteredDishes);
   }, [dishName, restName, tags.val]);
 
