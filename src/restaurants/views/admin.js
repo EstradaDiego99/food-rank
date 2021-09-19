@@ -5,6 +5,7 @@ import { handleError } from "../../utils/front-functions";
 
 import RestaurantForm from "./_form";
 import { toQueryString } from "../../utils/front-functions";
+import Header from "../../hello/header";
 
 export default function RestaurantAdmin() {
   const history = useHistory();
@@ -20,6 +21,7 @@ export default function RestaurantAdmin() {
         return;
       }
       setRestaurant(resGet.data);
+      console.log(resGet.data);
     }
 
     loadRestaurant();
@@ -43,19 +45,21 @@ export default function RestaurantAdmin() {
   }
 
   return (
-    <div>
-      <div className="container p-2">
-        <RestaurantForm restaurant={restaurant} action={saveRestaurant} />
+    <div className="admin_form_rest">
+      <Header></Header>
+      <div className="row justify-content-between row-form row-title">
+        <h1 className="title-admin">{restaurant.name}</h1>
+        <Link
+          className="my-buttons secondary form-bottom"
+          to={`/dishes/new?${toQueryString({ restaurant: id })}`}
+        >
+          Add dish
+        </Link>
       </div>
 
-      <div className="container"></div>
-
-      <Link
-        className="btn btn-lg bg-primary text-light"
-        to={`/dishes/new?${toQueryString({ restaurant: id })}`}
-      >
-        Add dish
-      </Link>
+      <div className="d-flex justify-content-center">
+        <RestaurantForm restaurant={restaurant} action={saveRestaurant} />
+      </div>
     </div>
   );
 }

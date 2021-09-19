@@ -16,9 +16,12 @@ body {
 
 .App-header {
   display: flex;
-  height: 5%;
-  justify-content: end;
+  height: 10vh;
+  justify-content: space-between;
   background-color: #f8982b;
+}
+.App-header img {
+  max-height: 10vh;
 }
 
 .App-body {
@@ -220,4 +223,21 @@ a:hover {
 }
 .ant-input-affix-wrapper {
   border-radius: 15px !important;
+}
+
+@media (max-width: 767px) {
+  .app-body__card {
+    width: 100vw;
+  }
+  .App-body h1 {
+    font-size: 1rem;
+  }
+  .div__buttons {
+    display: flex;
+  }
+  .my-buttons-header {
+    margin: 0;
+    margin-top: 20px;
+    font-size: 0.5rem;
+  }
 }
