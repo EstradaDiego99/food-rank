@@ -33,8 +33,8 @@ export default function ComparisonForm({
   return (
     <form onSubmit={saveComparison} className="card card-body">
       <div className="d-flex">
-        <p>{dishA.name}</p>
         <p>{dishB.name}</p>
+        <p>{dishA.name}</p>
       </div>
 
       <p>Among these two, which one did you like the most?</p>

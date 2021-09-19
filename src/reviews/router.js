@@ -2,17 +2,29 @@ const router = require("express").Router();
 const cors = require("cors");
 
 const Review = require("./model");
+const User = require("../users/model");
 const { extraerMensajesError } = require("../utils/functions");
 
 const { decodeToken } = require("../utils/jwt");
+
+const ELO_BASE = 1400;
 
 // CREATE
 router.post("/", cors(), async (req, res) => {
   const data = req.body || {};
 
-  const { id } = decodeToken(data.accessToken);
-  data.userId = id;
+  const { id: userId } = decodeToken(data.accessToken);
+  data.userId = userId;
   const newReview = new Review(data);
+
+  const user = await User.findOne({ _id: userId }).catch((err) => err);
+  // if (!user.dishesELO) {
+  //   user.dishesELO = { [data.dishId]: ELO_BASE };
+  // } else {
+  user.dishesELO.set(data.dishId, ELO_BASE);
+  // }
+  user.save();
+
   const resSave = await newReview.save().catch((err) => err);
   if (resSave instanceof Error) {
     return res.status(400).json({
