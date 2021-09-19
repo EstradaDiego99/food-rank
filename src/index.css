@@ -79,18 +79,18 @@ hr {
 }
 
 .blue-font {
-  color: #6BC4A6;
+  color: #6bc4a6;
 }
 
 .brown {
- background-color:  #92540d;
+  background-color: #92540d;
 }
 
 .blue {
-  background-color: #6BC4A6;
+  background-color: #6bc4a6;
 }
 
-.green{
+.green {
   background-color: #165236;
 }
 
@@ -260,6 +260,7 @@ a:hover {
     margin-top: 20px;
     font-size: 0.5rem;
   }
+}
 #new-dish {
   background-image: url("./assets/fondo.png");
   background-size: cover;
