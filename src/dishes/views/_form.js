@@ -102,7 +102,7 @@ export default function DishForm({ dish, action }) {
       </div>
 
       <div>
-        <Tags editMode={true}></Tags>
+        <Tags tags={tags} editMode={true} />
       </div>
 
       <div className="form-group d-block mb-3 p-0">

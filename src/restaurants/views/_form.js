@@ -65,7 +65,7 @@ export default function RestaurantForm({ restaurant, action }) {
       </div>
 
       <div className="container">
-        <TagsList tags={tags.val} editMode={true} />
+        <TagsList tags={tags} editMode={true} />
       </div>
 
       <div className="container d-flex">

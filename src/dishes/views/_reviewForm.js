@@ -31,7 +31,6 @@ export default function ReviewForm({ dish, action }) {
       role="dialog"
       aria-labelledby="modal-label"
       aria-hidden="true"
-      style={{ display: "block", opacity: 1 }}
     >
       <div className="modal-dialog" role="document">
         <div className="modal-content" style={{ borderRadius: "1em" }}>
