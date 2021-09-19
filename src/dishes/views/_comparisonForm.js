@@ -32,19 +32,18 @@ export default function ComparisonForm({
 
   return (
     <form onSubmit={saveComparison} className="card card-body">
-      <div className="d-flex">
-        <p>{dishB.name}</p>
-        <p>{dishA.name}</p>
-      </div>
+      <div className="d-flex"></div>
 
       <p>Among these two, which one did you like the most?</p>
 
       <div className="d-flex">
+        <p>{dishB.name}</p>
         <button type="button" onClick={() => setAtoB(0)}></button>
         <button type="button" onClick={() => setAtoB(0.25)}></button>
         <button type="button" onClick={() => setAtoB(0.5)}></button>
         <button type="button" onClick={() => setAtoB(0.75)}></button>
         <button type="button" onClick={() => setAtoB(1)}></button>
+        <p>{dishA.name}</p>
       </div>
 
       <div className="row bottom-buttons">

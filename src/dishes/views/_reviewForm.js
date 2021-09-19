@@ -1,7 +1,6 @@
 import React from "react";
 
 import { useFormState } from "../../utils/customStates";
-
 export default function ReviewForm({ dish, action, toggleShowReview }) {
   const dishId = useFormState(dish);
   const userId = useFormState(); // Get user from context
@@ -9,7 +8,6 @@ export default function ReviewForm({ dish, action, toggleShowReview }) {
 
   async function saveReview(e) {
     e.preventDefault();
-
     const newReviewInstance = {
       dishId: dishId.val,
       reviewMessage: reviewMessage.val,
@@ -25,7 +23,12 @@ export default function ReviewForm({ dish, action, toggleShowReview }) {
 
   return (
     <form onSubmit={saveReview} className="card card-body">
+      <h2>Give your review</h2>
+
       <div className="form-group">
+        <label className="form-label">
+          Tell us what you think about this dish:
+        </label>
         <input
           type="text"
           autoComplete="nope"
@@ -34,24 +37,21 @@ export default function ReviewForm({ dish, action, toggleShowReview }) {
           placeholder="Tell us what you think about this dish:"
           onChange={(e) => reviewMessage.setVal(e.target.value)}
         />
-        <label className="form-label">
-          Tell us what you think about this dish:
-        </label>
         <p className="text-danger">{reviewMessage.err}</p>
       </div>
 
       <p className="text-danger">{dishId.err}</p>
       <p className="text-danger">{userId.err}</p>
 
-      <div className="row bottom-buttons">
-        <button type="submit" className="btn btn-lg bg-primary text-light">
+      <div className="row bottom-buttons justify-content-center">
+        <button type="submit" className="my-buttons primary">
           Review dish
         </button>
 
         <button
           type="button"
           data-dismiss="modal"
-          className="btn btn-lg bg-danger text-light"
+          className="my-buttons secondary"
           onClick={() => toggleShowReview(false)}
         >
           Cancel

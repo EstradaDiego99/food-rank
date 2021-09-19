@@ -126,6 +126,7 @@
   margin-left: 20%;
   margin-right: 20%;
   margin-bottom: 3%;
+  margin-top: 3%;
 }
 
 .img-dish {
@@ -135,10 +136,25 @@
 }
 
 .thicc {
-  width: 150px;
+  width: 30vw;
   height: 50px;
+  font-size: 1.5rem;
 }
 
 .thin {
   width: 150px;
+}
+
+.figure-review {
+  background-color: #f8982b;
+  border-radius: 20px;
+  padding: 15px 0 5px 15px;
+  display: flex;
+  max-height: 15vh;
+}
+.figure-review img {
+  max-width: 20%;
+}
+.figure-review div {
+  padding-left: 10px;
 }

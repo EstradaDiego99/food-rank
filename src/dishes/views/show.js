@@ -11,6 +11,9 @@ import ComparisonForm from "./_comparisonForm";
 import TagsList from "../../shared/tags";
 import Header from "../../hello/header";
 
+import avatar from "../../assets/2.png";
+import avatar2 from "../../assets/3.png";
+
 export default function ShowDish() {
   const [dish, setDish] = useState(undefined);
   const [reviews, setReviews] = useState([]);
@@ -77,21 +80,6 @@ export default function ShowDish() {
 
   return (
     <main>
-<<<<<<< HEAD
-      <p>{dish.name}</p>
-      <img src={dish.photoUrl} alt="" />
-      <p>{dish.price}</p>
-      <p>{dish.currency}</p>
-
-      <TagsList tags={dish.tags} />
-
-      <button
-        type="button"
-        className="btn btn-lg"
-        data-toggle="modal"
-        data-target="#reviewModal"
-        onClick={() => toggleShowReview(true)}
-=======
       <Header />
       <div className="image-dish">
         <img className="img-dish" src={dish.photoUrl} alt="" />
@@ -139,7 +127,6 @@ export default function ShowDish() {
         tabIndex="-1"
         role="dialog"
         style={comparisonModalStyle}
->>>>>>> 377838eaa8f89b5bad3baeafa53d5da076825183
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content" style={{ borderRadius: "1em" }}>
@@ -156,53 +143,23 @@ export default function ShowDish() {
         </div>
       </div>
 
-<<<<<<< HEAD
-      <div
-        className="modal"
-        tabIndex="-1"
-        role="dialog"
-        style={reviewModalStyle}
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content" style={{ borderRadius: "1em" }}>
-            <ReviewForm
-              dish={id}
-              action={submitReview}
-              toggleShowReview={toggleShowReview}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div
-        className="modal"
-        tabIndex="-1"
-        role="dialog"
-        style={comparisonModalStyle}
-      >
-        <div className="modal-dialog" role="document">
-          <div className="modal-content" style={{ borderRadius: "1em" }}>
-            {similarDishesIdx >= 0 &&
-              similarDishesIdx < similarDishes.length && (
-                <ComparisonForm
-                  dishA={dish}
-                  dishB={similarDishes[similarDishesIdx]}
-                  action={submitComparison}
-                  setSimilarDishesIdx={setSimilarDishesIdx}
-                />
-              )}
-          </div>
-        </div>
-      </div>
-
-=======
->>>>>>> 377838eaa8f89b5bad3baeafa53d5da076825183
       <div className="container">
         {reviews &&
-          reviews.map((review) => (
-            <figure key={review._id}>
-              <p>{review.userName}</p>
-              <p>{review.reviewMessage}</p>
+          reviews.map((review, index) => (
+            <figure
+              key={review._id}
+              className="figure-review"
+              style={
+                index % 2 === 0
+                  ? { backgroundColor: "#f8982b" }
+                  : { backgroundColor: "#6bc4a6" }
+              }
+            >
+              <img src={index % 2 === 0 ? avatar : avatar2} alt="avatar" />
+              <div>
+                <p style={{ fontWeight: "bold" }}>{review.userName}</p>
+                <p>{review.reviewMessage}</p>
+              </div>
             </figure>
           ))}
       </div>
