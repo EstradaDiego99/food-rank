@@ -3,13 +3,15 @@ import axios from "../../utils/customAxios";
 import { handleError } from "../../utils/front-functions";
 import Header from "../../hello/header";
 
+import "./styles.css";
+
 import DishCard from "./dishCard";
 import RecommendationsCard from "./recomendationsCard";
-
-import "./styles.css";
+import DishesFilter from "./_filter";
 
 export default function DishShow() {
   const [dishes, setDishes] = useState();
+  const [filteredDishes, setFilteredDishes] = useState();
 
   useEffect(() => {
     const fetchDishes = async () => {
@@ -18,6 +20,7 @@ export default function DishShow() {
         handleError(resGet);
         return;
       }
+      console.log(resGet.data);
       setDishes(resGet.data);
     };
     fetchDishes();
@@ -34,9 +37,16 @@ export default function DishShow() {
           <h2>DISHES</h2>
           <hr></hr>
 
-          {dishes ? (
+          {dishes && (
+            <DishesFilter
+              dishes={dishes}
+              setFilteredDishes={setFilteredDishes}
+            />
+          )}
+
+          {filteredDishes ? (
             <div>
-              {dishes.map((dish) => {
+              {filteredDishes.map((dish) => {
                 return (
                   <DishCard
                     id={dish._id}

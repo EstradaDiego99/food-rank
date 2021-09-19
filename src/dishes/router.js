@@ -67,6 +67,13 @@ router.get("/", cors(), async (req, res) => {
       .json({ msg: "There was an error obtaining list of dishes." });
   }
 
+  for (const dish of resFind) {
+    const restObj = await Restaurant.findOne({ _id: dish.restaurantId })
+      .lean()
+      .catch((err) => err);
+    dish.restaurant = restObj;
+  }
+
   return res.json(resFind);
 });
 

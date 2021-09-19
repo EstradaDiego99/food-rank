@@ -6,6 +6,7 @@ import addIcon from "../assets/add_black_24dp.svg";
 export default function TagsList({ tags, editMode }) {
   const innerTags = editMode ? tags.val : tags;
   const [newTag, setNewTag] = useState("");
+
   return (
     <>
       <div className="container d-flex flex-wrap">

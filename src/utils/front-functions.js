@@ -14,3 +14,20 @@ export function toQueryString(query) {
     .map((key) => key + "=" + query[key])
     .join("&");
 }
+
+/** Is the second string a substring of the first one?
+ * @param {String} outer
+ * @param {String} inner
+ * @returns {boolean}
+ */
+export function stringsMatch(outer, inner) {
+  outer = outer
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  inner = inner
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  return outer.indexOf(inner) !== -1;
+}
