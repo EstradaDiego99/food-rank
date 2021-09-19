@@ -20,21 +20,21 @@ export default function App() {
   if (accessToken === undefined) {
     return <div>Cargando...</div>;
   }
-
-  if (accessToken === null) {
+  //PONER EN RUTAS PROTEGIDAS
+  /*if (accessToken === null) {
     return <LayoutSignIn />;
-  }
+  }*/
 
   return (
-    <Router>
-      <UserContext.Provider value={accessToken}>
+    <UserContext.Provider value={accessToken}>
+      <Router>
         <Switch>
           <Route exact path="/" component={Hello} />
           <Route path="/restaurants" component={RestaurantRoutes} />
           <Route path="/dishes" component={DishesRoutes} />
           <Route path="/auth" component={LayoutSignIn} />
         </Switch>
-      </UserContext.Provider>
-    </Router>
+      </Router>
+    </UserContext.Provider>
   );
 }
