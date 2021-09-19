@@ -21,10 +21,10 @@ export default function Header() {
       {user !== "" ? (
         <>
           <Link to="/">
-            <img src={logo}></img>
+            <img src={logo} alt="logo"></img>
           </Link>{" "}
           <div>
-            <Link to="/">
+            <Link to="/profile/recommendations">
               <button className="my-buttons-header primary">
                 My profile: {user.name.substr(0, user.name.indexOf(" "))}
               </button>
@@ -38,7 +38,7 @@ export default function Header() {
       ) : (
         <>
           <Link to="/">
-            <img src={logo}></img>
+            <img src={logo} alt="logo"></img>
           </Link>
           <div>
             <Link to="/auth">

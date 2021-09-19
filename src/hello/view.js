@@ -7,6 +7,7 @@ import jwtDecode from "jwt-decode";
 import { Card, Input } from "antd";
 import { logout } from "../users/view/auth";
 import logo from "../assets/logo.png";
+import Header from "./header";
 
 import { toQueryString } from "../utils/front-functions";
 
@@ -28,44 +29,7 @@ export default function Hello() {
   };
   return (
     <div className="App">
-      <header className="App-header">
-        {user !== "" ? (
-          <>
-            <Link to="/">
-              <img src={logo} alt=""></img>
-            </Link>{" "}
-            <div>
-              <Link to="/">
-                <button className="my-buttons-header primary">
-                  My profile: {user.name.substr(0, user.name.indexOf(" "))}
-                </button>
-              </Link>
-
-              <button
-                className="my-buttons-header primary"
-                onClick={logoutUser}
-              >
-                Logout
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <Link to="/">
-              <img src={logo} alt=""></img>
-            </Link>
-            <div>
-              <Link to="/auth">
-                <button className="my-buttons-header primary">Signup</button>
-              </Link>
-              <Link to="/auth">
-                <button className="my-buttons-header primary">Login</button>
-              </Link>
-            </div>
-          </>
-        )}
-      </header>
-
+      <Header />
       <body className="App-body">
         <Card className="app-body__card">
           <Input

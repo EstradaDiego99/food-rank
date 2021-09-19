@@ -36,7 +36,7 @@ export default function DishShow() {
   return (
     <>
       {" "}
-      <Header></Header>
+      <Header />
       <div className="arrange">
         <div className="filter"></div>
 
@@ -73,18 +73,6 @@ export default function DishShow() {
           ) : (
             <h3>Loading dishes...</h3>
           )}
-        </div>
-
-        <div className="right-col">
-          <h2 className="secondary-font">OUR RECOMMENDATIONS FOR YOU</h2>
-          <RecommendationsCard
-            mealname="MEAL 1"
-            photo
-            recommended
-            color="primary"
-          />
-          <RecommendationsCard mealname photo recommended color="secondary" />
-          <RecommendationsCard mealname photo recommended color="brown" />
         </div>
       </div>
     </>

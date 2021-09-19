@@ -33,6 +33,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Hello} />
           <Route
+            exact
             path="/profile/recommendations"
             component={ProfileRecommendations}
           />
