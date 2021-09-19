@@ -76,11 +76,6 @@ export default function ShowDish() {
        </Link>
       </div>
 
-
-
-
-
-
       <ReviewForm dish={id} action={submitReview} />
     </main>
   );
