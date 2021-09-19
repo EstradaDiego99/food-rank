@@ -57,11 +57,16 @@ hr {
 .primary {
   background-color: #20686c;
 }
+.primary:hover {
+  background-color: #012b2e;
+}
 
 .secondary {
   background-color: #f8982b;
 }
-
+.secondary:hover {
+  background-color: #92540d;
+}
 .secondary-font {
   color: #f8982b;
 }
@@ -170,7 +175,7 @@ a:hover {
 
 .custom-file-label {
   color: white;
-  height: 5em;
+  height: 20vh;
   background-color: rgba(0, 0, 0, 0.25);
   padding-top: 1.8em;
   text-align: center;
@@ -210,4 +215,7 @@ a:hover {
 }
 .ant-input-affix-wrapper {
   border-radius: 15px !important;
+#new-dish {
+  background-image: url("./assets/fondo.png");
+  background-size: cover;
 }
