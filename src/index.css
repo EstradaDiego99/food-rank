@@ -78,6 +78,22 @@ hr {
   color: #20686c;
 }
 
+.blue-font {
+  color: #6BC4A6;
+}
+
+.brown {
+ background-color:  #92540d;
+}
+
+.blue {
+  background-color: #6BC4A6;
+}
+
+.green{
+  background-color: #165236;
+}
+
 .App-link {
   color: black;
 }
@@ -244,4 +260,7 @@ a:hover {
     margin-top: 20px;
     font-size: 0.5rem;
   }
+#new-dish {
+  background-image: url("./assets/fondo.png");
+  background-size: cover;
 }
