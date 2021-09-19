@@ -52,6 +52,20 @@ export default function DishShow() {
             />
           )}
 
+          <div>
+            <p
+              style={{
+                textAlign: "center",
+                margin: "1em",
+                fontSize: "1.5em",
+                fontWeight: "bold",
+              }}
+            >
+              The following list of dishes is ordered starting from the best
+              based on their ELO ranking
+            </p>
+          </div>
+
           {filteredDishes ? (
             <div>
               {filteredDishes.map((dish) => {
