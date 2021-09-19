@@ -26,22 +26,20 @@ export default function ShowDish() {
   const accessToken = useContext(UserContext);
 
   const { id } = useParams();
-  useEffect(() => {
-    async function loadDish() {
-      const resGet = await axios
-        .get(`/dishes/${id}?token=${accessToken}`)
-        .catch((err) => err);
-      if (resGet instanceof Error) {
-        handleError(resGet);
-        return;
-      }
-      setDish(resGet.data.objDish);
-      setReviews(resGet.data.reviews);
-      setSimilarDishes(resGet.data.similarDishes);
+  async function loadDish() {
+    const resGet = await axios
+      .get(`/dishes/${id}?token=${accessToken}`)
+      .catch((err) => err);
+    if (resGet instanceof Error) {
+      handleError(resGet);
+      return;
     }
+    setDish(resGet.data.objDish);
+    setReviews(resGet.data.reviews);
+    setSimilarDishes(resGet.data.similarDishes);
+  }
 
-    loadDish();
-  }, [id, accessToken]);
+  useEffect(() => loadDish(), [id, accessToken]);
 
   async function submitReview(review) {
     review.accessToken = accessToken;
@@ -51,6 +49,7 @@ export default function ShowDish() {
     }
     toggleShowReview(false);
     setSimilarDishesIdx(0);
+    loadDish();
   }
 
   async function submitComparison(comparison) {
