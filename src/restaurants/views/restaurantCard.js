@@ -25,11 +25,7 @@ export default function RestaurantCard (props) {
                 {index <5 && 
                   <div>
                     {(index%2 === 0)? 
-<<<<<<< HEAD
                       <p className="tag green" key="tag">{tag}</p>
-=======
-                      <p className="tag primary" key="tag">{tag}</p>
->>>>>>> 6812f98dfb21b001fbc2f3e3509cc049eb4c2831
                       :
                       <p className="tag blue" key="tag">{tag}</p>
                     }

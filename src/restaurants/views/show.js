@@ -4,11 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "../../utils/customAxios";
 import { handleError } from "../../utils/front-functions";
 import altImage from "../../assets/foodAlt.jpg";
-<<<<<<< HEAD
 import DishCard from "../../dishes/views/dishCard";
-=======
-//import DishCard from "../../dishes/views/dishCard";
->>>>>>> 6812f98dfb21b001fbc2f3e3509cc049eb4c2831
 
 export default function RestaurantShow() {
   const [restaurant, setRestaurant] = useState(undefined);
@@ -23,10 +19,6 @@ export default function RestaurantShow() {
         handleError(resGet);
         return;
       }
-<<<<<<< HEAD
-=======
-      console.log("Resget", resGet);
->>>>>>> 6812f98dfb21b001fbc2f3e3509cc049eb4c2831
       setRestaurant(resGet.data.resFind);
       setDishes(resGet.data.resDishes);
       return;
@@ -44,10 +36,6 @@ export default function RestaurantShow() {
 
   return (
     <div className="arrange-show">
-<<<<<<< HEAD
-=======
-
->>>>>>> 6812f98dfb21b001fbc2f3e3509cc049eb4c2831
       <div className="pictures-res">
         <div className="pictures-res-1">
           {restaurant.yelpPhotosUrl[0]?
@@ -71,7 +59,6 @@ export default function RestaurantShow() {
           }
         </div> 
       </div>
-<<<<<<< HEAD
       <div className="align-center">
         <h1>{restaurant.name}</h1>
         <p>{restaurant.address} {restaurant.city} {restaurant.state} {restaurant.postalCode}</p>
@@ -103,19 +90,6 @@ export default function RestaurantShow() {
         </div>
         :
         <h1>No dishes found</h1>
-=======
-
-      <h1>{restaurant.name}</h1>
-      <p>{restaurant.address} {restaurant.city} {restaurant.state} {restaurant.postalCode}</p>
-      <Link to={`dishes/new`}>
-        <button className="my-buttons primary">Add dishes</button>
-      </Link>
-      <div className="dishes-res">
-        {dishes && dishes.length !==0 ?
-        <h1>YES</h1>
-        :
-        <h1>NO</h1>
->>>>>>> 6812f98dfb21b001fbc2f3e3509cc049eb4c2831
         }
       </div>
     </div>
