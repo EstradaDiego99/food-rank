@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import axios from "../../utils/customAxios";
 import { handleError } from "../../utils/front-functions";
@@ -8,6 +9,7 @@ import { UserContext } from "../../utils/context";
 import ReviewForm from "./_reviewForm";
 import ComparisonForm from "./_comparisonForm";
 import TagsList from "../../shared/tags";
+import Header from "../../hello/header";
 
 export default function ShowDish() {
   const [dish, setDish] = useState(undefined);
@@ -75,6 +77,7 @@ export default function ShowDish() {
 
   return (
     <main>
+<<<<<<< HEAD
       <p>{dish.name}</p>
       <img src={dish.photoUrl} alt="" />
       <p>{dish.price}</p>
@@ -88,10 +91,72 @@ export default function ShowDish() {
         data-toggle="modal"
         data-target="#reviewModal"
         onClick={() => toggleShowReview(true)}
-      >
-        Review meal
-      </button>
+=======
+      <Header />
+      <div className="image-dish">
+        <img className="img-dish" src={dish.photoUrl} alt="" />
+      </div>
+      <div className="align-center">
+        <h1>{dish.name}</h1>
+        <h2 className="blue-font">
+          ${dish.price} {dish.currency}
+        </h2>
+        <div className="align-flex">
+          {dish.tags.map((tag) => {
+            return <p className="tag blue thin">{tag}</p>;
+          })}
+        </div>
+        <Link>
+          <button
+            type="button"
+            className="my-buttons primary thicc"
+            onClick={() => toggleShowReview(true)}
+          >
+            Review meal
+          </button>
+        </Link>
+      </div>
 
+      <div
+        className="modal"
+        tabIndex="-1"
+        role="dialog"
+        style={reviewModalStyle}
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content" style={{ borderRadius: "1em" }}>
+            <ReviewForm
+              dish={id}
+              action={submitReview}
+              toggleShowReview={toggleShowReview}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal"
+        tabIndex="-1"
+        role="dialog"
+        style={comparisonModalStyle}
+>>>>>>> 377838eaa8f89b5bad3baeafa53d5da076825183
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content" style={{ borderRadius: "1em" }}>
+            {similarDishesIdx >= 0 &&
+              similarDishesIdx < similarDishes.length && (
+                <ComparisonForm
+                  dishA={dish}
+                  dishB={similarDishes[similarDishesIdx]}
+                  action={submitComparison}
+                  setSimilarDishesIdx={setSimilarDishesIdx}
+                />
+              )}
+          </div>
+        </div>
+      </div>
+
+<<<<<<< HEAD
       <div
         className="modal"
         tabIndex="-1"
@@ -130,6 +195,8 @@ export default function ShowDish() {
         </div>
       </div>
 
+=======
+>>>>>>> 377838eaa8f89b5bad3baeafa53d5da076825183
       <div className="container">
         {reviews &&
           reviews.map((review) => (

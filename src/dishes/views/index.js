@@ -1,36 +1,73 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
 import axios from "../../utils/customAxios";
-import PostSummary from "./_summary";
+import { handleError } from "../../utils/front-functions";
+import Header from "../../hello/header";
 
-async function fetchData(setData) {
-  const resGet = await axios.get("api/posts").catch((err) => err);
-  if (resGet instanceof Error) {
-    alert(resGet.message);
-    setData(null);
-    return;
-  }
-  setData(resGet.data);
-}
+import DishCard from "./dishCard";
+import RecommendationsCard from "./recomendationsCard";
 
-/** List of all the post instances. */
-export default function PostIndex() {
-  const [data, setData] = useState([]);
+import "./styles.css";
 
-  useEffect(() => fetchData(setData), []);
+export default function DishShow() {
+  const [dishes, setDishes] = useState();
+
+  useEffect(() => {
+    const fetchDishes = async () => {
+      const resGet = await axios.get("/dishes/").catch((err) => err);
+      if (resGet instanceof Error) {
+        handleError(resGet);
+        return;
+      }
+      setDishes(resGet.data);
+    };
+    fetchDishes();
+  }, []);
 
   return (
-    <main id="posts-index" className="container">
-      <h1 className="w-100 text-center">Post entries list</h1>
+    <>
+      {" "}
+      <Header></Header>
+      <div className="arrange">
+        <div className="filter"></div>
 
-      {data?.map((post, idx) => (
-        <PostSummary key={`post-${idx}`} {...{ post }} />
-      ))}
+        <div className="left-col">
+          <h2>DISHES</h2>
+          <hr></hr>
 
-      <Link to="post/new" className="text-right">
-        <button className="btn btn-lg btn-warning">New Post Instance</button>
-      </Link>
-    </main>
+          {dishes ? (
+            <div>
+              {dishes.map((dish) => {
+                return (
+                  <DishCard
+                    id={dish._id}
+                    elo={dish.elo}
+                    tags={dish.tags}
+                    restaurantId={dish.restaurantId}
+                    name={dish.name}
+                    price={dish.price}
+                    currency={dish.currency}
+                    photo={dish.photoUrl}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <h3>No dishes found</h3>
+          )}
+        </div>
+
+        <div className="right-col">
+          <h2 className="secondary-font">OUR RECOMMENDATIONS FOR YOU</h2>
+          <RecommendationsCard
+            mealname="MEAL 1"
+            photo
+            recommended
+            color="primary"
+          />
+          <RecommendationsCard mealname photo recommended color="secondary" />
+          <RecommendationsCard mealname photo recommended color="brown" />
+        </div>
+      </div>
+    </>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import imgLoading from "../../assets/loading.svg";
-
 import { useFormState } from "../../utils/customStates";
 import Tags from "../../shared/tags";
 import Header from "../../hello/header";
@@ -9,7 +8,6 @@ import Header from "../../hello/header";
 /** Template form for the different type of fields. */
 export default function DishForm({ dish, action }) {
   const history = useHistory();
-
   const restaurantId = useFormState(dish?.restaurantId);
   const name = useFormState(dish?.name);
   const price = useFormState(dish?.price);
@@ -58,6 +56,7 @@ export default function DishForm({ dish, action }) {
           <div className="row">
             <div className="col-sm-12 col-md-6">
               <div className="form-group">
+                <label className="form-label">From restaurant (ID):</label>
                 <input
                   type="text"
                   autoComplete="nope"
@@ -66,10 +65,12 @@ export default function DishForm({ dish, action }) {
                   placeholder="From restaurant (ID):"
                   onChange={(e) => restaurantId.setVal(e.target.value)}
                 />
-                <label className="form-label">From restaurant (ID):</label>
                 <p className="text-danger">{restaurantId.err}</p>
               </div>
               <div className="form-group">
+                <label className="form-label" for="name">
+                  Name:
+                </label>
                 <input
                   id="name"
                   type="text"
@@ -79,13 +80,11 @@ export default function DishForm({ dish, action }) {
                   placeholder="Name:"
                   onChange={(e) => name.setVal(e.target.value)}
                 />
-                <label className="form-label" for="name">
-                  Name:
-                </label>
                 <p className="text-danger">{name.err}</p>
               </div>
               <div className="row">
                 <div className="col-sm-12 col-md-6 form-group">
+                  <label className="form-label">Price:</label>
                   <input
                     type="number"
                     autoComplete="nope"
@@ -94,11 +93,11 @@ export default function DishForm({ dish, action }) {
                     placeholder="Price:"
                     onChange={(e) => price.setVal(e.target.value)}
                   />
-                  <label className="form-label">Price:</label>
                   <p className="text-danger">{price.err}</p>
                 </div>
 
                 <div className="col-sm-12 col-md-6 form-group">
+                  <label className="form-label">Currency:</label>
                   <input
                     type="text"
                     autoComplete="nope"
@@ -107,7 +106,6 @@ export default function DishForm({ dish, action }) {
                     placeholder="Currency:"
                     onChange={(e) => currency.setVal(e.target.value)}
                   />
-                  <label className="form-label">Currency:</label>
                   <p className="text-danger">{currency.err}</p>
                 </div>
               </div>

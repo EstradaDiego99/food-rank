@@ -13,8 +13,8 @@
     "dev": "concurrently \"npm run local-server\" \"npm run local-client\""
   },
   "dependencies": {
-    "antd": "^4.16.13",
     "@google-cloud/storage": "^5.14.2",
+    "antd": "^4.16.13",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "bcrypt-node": "^0.1.0",
@@ -30,6 +30,7 @@
     "path": "^0.12.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-multi-carousel": "^2.6.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1"
   },

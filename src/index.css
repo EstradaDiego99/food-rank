@@ -16,9 +16,12 @@ body {
 
 .App-header {
   display: flex;
-  height: 5%;
-  justify-content: end;
+  height: 10vh;
+  justify-content: space-between;
   background-color: #f8982b;
+}
+.App-header img {
+  max-height: 10vh;
 }
 
 .App-body {
@@ -69,6 +72,26 @@ hr {
 }
 .secondary-font {
   color: #f8982b;
+}
+
+.primary-font {
+  color: #20686c;
+}
+
+.blue-font {
+  color: #6bc4a6;
+}
+
+.brown {
+  background-color: #92540d;
+}
+
+.blue {
+  background-color: #6bc4a6;
+}
+
+.green {
+  background-color: #165236;
 }
 
 .App-link {
@@ -220,4 +243,25 @@ a:hover {
 }
 .ant-input-affix-wrapper {
   border-radius: 15px !important;
+}
+
+@media (max-width: 767px) {
+  .app-body__card {
+    width: 100vw;
+  }
+  .App-body h1 {
+    font-size: 1rem;
+  }
+  .div__buttons {
+    display: flex;
+  }
+  .my-buttons-header {
+    margin: 0;
+    margin-top: 20px;
+    font-size: 0.5rem;
+  }
+}
+#new-dish {
+  background-image: url("./assets/fondo.png");
+  background-size: cover;
 }
