@@ -5,36 +5,6 @@ function toQueryString(query) {
     .join("&");
 }
 
-function createExpectedPlayerProbability(ratingDifference){
-  const exponent = ratingDifference / process.env.SCALE_FACTOR;
-
-  return 1 / (1 + Math.pow(process.env.EXPONENT_BASE,exponent));
-}
-
-function createPlayerProbabilities(playerARating,playerBRating){
-
-  const ratingADifference = playerBRating - playerARating;
-  const ratingBDifference = playerArating - playerBRating;
-
-  const playerAProbability = createExpectedPlayerProbability(ratingADifference)
-  const playerBProbability = createExpectedPlayerProbability(ratingBDifference)
-
-  return {
-    playerAProbability,
-    playerBProbability
-  }
-}
-
-function getNextRating(playerRating,score, playerProbability){
-
-  const change = Math.round(process.env.K_FACTOR * (score - playerProbability));
-  const nextRating = playerRating + change;
-
-  return nextRating;
-
-}
-
-
 /** Converts string to JSON object if possible, if not returns string as it is */
 function optionalStringToJSON(jsonString) {
   if (typeof jsonString !== "string") {
