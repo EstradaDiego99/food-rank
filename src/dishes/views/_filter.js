@@ -7,7 +7,7 @@ import { stringsMatch } from "../../utils/front-functions";
 export default function DishesFilter({ dishes, setFilteredDishes, prevInput }) {
   const [dishName, setDishName] = useState("");
   const [restName, setRestName] = useState("");
-  const tags = useFormState([prevInput] || []);
+  const tags = useFormState(prevInput ? [prevInput] : []);
 
   useEffect(() => {
     const filteredDishes = dishes.filter((dish) => {
