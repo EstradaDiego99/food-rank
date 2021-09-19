@@ -4,7 +4,10 @@ const { Storage } = require("@google-cloud/storage");
 const Multer = require("multer");
 
 const Dish = require("./model");
+const Review = require("../reviews/model");
+const User = require("../users/model");
 const { extraerMensajesError } = require("../utils/functions");
+const { decodeToken } = require("../utils/jwt");
 
 const storage = new Storage();
 const bucket = storage.bucket(process.env.GCS_BUCKET);
@@ -66,7 +69,12 @@ router.get("/", cors(), async (req, res) => {
 
 router.get("/:_id", cors(), async (req, res) => {
   const { _id } = req.params;
-  const resFind = await Dish.findOne({ _id }).catch((err) => err);
+  const { query = {} } = req;
+  const userId = query.token ? decodeToken(query.token).id : "";
+
+  const resFind = await Dish.findOne({ _id })
+    .lean()
+    .catch((err) => err);
   if (resFind instanceof Error) {
     return res
       .status(400)
@@ -76,8 +84,32 @@ router.get("/:_id", cors(), async (req, res) => {
     return res.status(400).json({ msg: "No dish with this id was found." });
   }
 
-  const objFind = resFind.toObject();
-  return res.json(objFind);
+  const reviews = await Review.find({ dishId: _id })
+    .lean()
+    .catch((err) => err);
+  for (const r of reviews) {
+    const userNameObj = await User.findOne({ _id: r.userId }, "-_id name")
+      .lean()
+      .catch((err) => err);
+    r.userName = userNameObj?.name;
+  }
+
+  const reviewedRestaurantsObj = await Review.find({ userId: userId }, "dishId")
+    .lean()
+    .catch((err) => err);
+  const reviewedRestaurants = reviewedRestaurantsObj.map((r) => r.dishId);
+
+  const similarDishes = await Dish.find({
+    _id: { $ne: _id, $in: reviewedRestaurants },
+    tags: { $in: resFind.tags },
+  })
+    .lean()
+    .catch((err) => err);
+  return res.json({
+    objDish: resFind,
+    similarDishes,
+    reviews,
+  });
 });
 
 router.get("/res-dishes/:_id", cors(), async (req, res) => {

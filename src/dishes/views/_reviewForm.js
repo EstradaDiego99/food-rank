@@ -2,7 +2,7 @@ import React from "react";
 
 import { useFormState } from "../../utils/customStates";
 
-export default function ReviewForm({ dish, action }) {
+export default function ReviewForm({ dish, action, toggleShowReview }) {
   const dishId = useFormState(dish);
   const userId = useFormState(); // Get user from context
   const reviewMessage = useFormState();
@@ -24,54 +24,39 @@ export default function ReviewForm({ dish, action }) {
   }
 
   return (
-    <div
-      className="modal fade"
-      id="reviewModal"
-      tabIndex="-1"
-      role="dialog"
-      aria-labelledby="modal-label"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog" role="document">
-        <div className="modal-content" style={{ borderRadius: "1em" }}>
-          <form onSubmit={saveReview} className="card card-body">
-            <div className="form-group">
-              <input
-                type="text"
-                autoComplete="nope"
-                className="form-control"
-                value={reviewMessage.val}
-                placeholder="Tell us what you think about this dish:"
-                onChange={(e) => reviewMessage.setVal(e.target.value)}
-              />
-              <label className="form-label">
-                Tell us what you think about this dish:
-              </label>
-              <p className="text-danger">{reviewMessage.err}</p>
-            </div>
-
-            <p className="text-danger">{dishId.err}</p>
-            <p className="text-danger">{userId.err}</p>
-
-            <div className="row bottom-buttons">
-              <button
-                type="submit"
-                className="btn btn-lg bg-primary text-light"
-              >
-                Review dish
-              </button>
-
-              <button
-                type="button"
-                data-dismiss="modal"
-                className="btn btn-lg bg-danger text-light"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
+    <form onSubmit={saveReview} className="card card-body">
+      <div className="form-group">
+        <input
+          type="text"
+          autoComplete="nope"
+          className="form-control"
+          value={reviewMessage.val}
+          placeholder="Tell us what you think about this dish:"
+          onChange={(e) => reviewMessage.setVal(e.target.value)}
+        />
+        <label className="form-label">
+          Tell us what you think about this dish:
+        </label>
+        <p className="text-danger">{reviewMessage.err}</p>
       </div>
-    </div>
+
+      <p className="text-danger">{dishId.err}</p>
+      <p className="text-danger">{userId.err}</p>
+
+      <div className="row bottom-buttons">
+        <button type="submit" className="btn btn-lg bg-primary text-light">
+          Review dish
+        </button>
+
+        <button
+          type="button"
+          data-dismiss="modal"
+          className="btn btn-lg bg-danger text-light"
+          onClick={() => toggleShowReview(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
   );
 }

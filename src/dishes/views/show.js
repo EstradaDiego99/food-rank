@@ -7,29 +7,37 @@ import { handleError } from "../../utils/front-functions";
 import { UserContext } from "../../utils/context";
 
 import ReviewForm from "./_reviewForm";
-import TagsList from "../../shared/tags";
+import ComparisonForm from "./_comparisonForm";
 import Header from "../../hello/header";
 
-async function loadDish(id, setDishes) {
-  const resGet = await axios.get(`/dishes/${id}`).catch((err) => err);
-  if (resGet instanceof Error) {
-    handleError(resGet);
-    return;
-  }
-  setDishes(resGet.data);
-}
-
 export default function ShowDish() {
-  const history = useHistory();
   const [dish, setDish] = useState(undefined);
-  const [tags, setTags] = useState();
+  const [reviews, setReviews] = useState([]);
+
+  const [similarDishes, setSimilarDishes] = useState([]);
+  const [similarDishesIdx, setSimilarDishesIdx] = useState(-1);
+
+  const [showReview, toggleShowReview] = useState(false);
+
+  const accessToken = useContext(UserContext);
 
   const { id } = useParams();
   useEffect(() => {
-    loadDish(id, setDish);
-  }, []);
+    async function loadDish() {
+      const resGet = await axios
+        .get(`/dishes/${id}?token=${accessToken}`)
+        .catch((err) => err);
+      if (resGet instanceof Error) {
+        handleError(resGet);
+        return;
+      }
+      setDish(resGet.data.objDish);
+      setReviews(resGet.data.reviews);
+      setSimilarDishes(resGet.data.similarDishes);
+    }
 
-  const accessToken = useContext(UserContext);
+    loadDish();
+  }, [id, accessToken]);
 
   async function submitReview(review) {
     review.accessToken = accessToken;
@@ -37,7 +45,19 @@ export default function ShowDish() {
     if (resPost instanceof Error) {
       throw resPost;
     }
-    history.push(`/dishes/${id}`);
+    toggleShowReview(false);
+    setSimilarDishesIdx(0);
+  }
+
+  async function submitComparison(comparison) {
+    comparison.accessToken = accessToken;
+    const resPost = await axios
+      .post(`/comparisons`, comparison)
+      .catch((err) => err);
+    if (resPost instanceof Error) {
+      throw resPost;
+    }
+    setSimilarDishesIdx((similarDishesIdx) => similarDishesIdx + 1);
     return resPost;
   }
 
@@ -45,11 +65,18 @@ export default function ShowDish() {
     return <></>;
   }
 
-  console.log(dish);
+  const reviewModalStyle = showReview
+    ? { display: "block", backgroundColor: "rgba(0, 0, 0, 0.85)" }
+    : {};
+
+  const comparisonModalStyle =
+    similarDishesIdx >= 0 && similarDishesIdx < similarDishes.length
+      ? { display: "block", backgroundColor: "rgba(0, 0, 0, 0.85)" }
+      : {};
 
   return (
     <main>
-      <Header></Header>
+      <Header />
       <div className="image-dish">
         <img className="img-dish" src={dish.photoUrl} alt="" />
       </div>
@@ -67,16 +94,60 @@ export default function ShowDish() {
           <button
             type="button"
             className="my-buttons primary thicc"
-            data-toggle="modal"
-            data-target="#reviewModal"
-            onClick={() => console.log("nanika")}
+            onClick={() => toggleShowReview(true)}
           >
             Review meal
           </button>
         </Link>
       </div>
 
-      <ReviewForm dish={id} action={submitReview} />
+      <div
+        className="modal"
+        tabIndex="-1"
+        role="dialog"
+        style={reviewModalStyle}
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content" style={{ borderRadius: "1em" }}>
+            <ReviewForm
+              dish={id}
+              action={submitReview}
+              toggleShowReview={toggleShowReview}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal"
+        tabIndex="-1"
+        role="dialog"
+        style={comparisonModalStyle}
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content" style={{ borderRadius: "1em" }}>
+            {similarDishesIdx >= 0 &&
+              similarDishesIdx < similarDishes.length && (
+                <ComparisonForm
+                  dishA={dish}
+                  dishB={similarDishes[similarDishesIdx]}
+                  action={submitComparison}
+                  setSimilarDishesIdx={setSimilarDishesIdx}
+                />
+              )}
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        {reviews &&
+          reviews.map((review) => (
+            <figure key={review._id}>
+              <p>{review.userName}</p>
+              <p>{review.reviewMessage}</p>
+            </figure>
+          ))}
+      </div>
     </main>
   );
 }
