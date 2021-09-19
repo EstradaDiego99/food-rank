@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useFormState } from "../../utils/customStates";
-
+import "./styles.css";
 export default function ComparisonForm({
   dishA,
   dishB,
@@ -34,19 +34,39 @@ export default function ComparisonForm({
     <form onSubmit={saveComparison} className="card card-body">
       <div className="d-flex"></div>
 
-      <p>Among these two, which one did you like the most?</p>
+      <h2>Among these two, which one did you like the most?</h2>
 
-      <div className="d-flex">
-        <p>{dishB.name}</p>
-        <button type="button" onClick={() => setAtoB(0)}></button>
-        <button type="button" onClick={() => setAtoB(0.25)}></button>
-        <button type="button" onClick={() => setAtoB(0.5)}></button>
-        <button type="button" onClick={() => setAtoB(0.75)}></button>
-        <button type="button" onClick={() => setAtoB(1)}></button>
-        <p>{dishA.name}</p>
+      <div className="d-flex align-items-center justify-content-between">
+        <p className="comparison_meal">{dishB.name}</p>
+        <button
+          className="comparison_button"
+          type="button"
+          onClick={() => setAtoB(0)}
+        ></button>
+        <button
+          className="comparison_button"
+          type="button"
+          onClick={() => setAtoB(0.25)}
+        ></button>
+        <button
+          className="comparison_button"
+          type="button"
+          onClick={() => setAtoB(0.5)}
+        ></button>
+        <button
+          className="comparison_button"
+          type="button"
+          onClick={() => setAtoB(0.75)}
+        ></button>
+        <button
+          className="comparison_button"
+          type="button"
+          onClick={() => setAtoB(1)}
+        ></button>
+        <p className="comparison_meal">{dishA.name}</p>
       </div>
 
-      <div className="row bottom-buttons">
+      <div className="row bottom-buttons justify-content-around mt-5">
         <button type="submit" className="btn btn-lg bg-primary text-light">
           Send Comparison
         </button>
