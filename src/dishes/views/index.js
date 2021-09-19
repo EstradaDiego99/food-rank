@@ -57,6 +57,7 @@ export default function DishShow() {
                     price={dish.price}
                     currency={dish.currency}
                     photo={dish.photoUrl}
+                    restaurant={dish.restaurant}
                   />
                 );
               })}
