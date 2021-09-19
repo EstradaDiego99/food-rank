@@ -38,7 +38,7 @@ export default function Hello() {
             onChange={(e) => setSearch(e.target.value)}
           />
           <button
-            className="my-buttons-header primary"
+            className="my-buttons-header primary search-button"
             onClick={() => {
               history.push(`/dishes?${toQueryString({ prevInput: search })}`);
             }}

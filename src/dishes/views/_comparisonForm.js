@@ -35,6 +35,10 @@ export default function ComparisonForm({
       <div className="d-flex"></div>
 
       <h2>Among these two, which one did you like the most?</h2>
+      <div className="d-flex align-items-center justify-content-between">
+        <img src={dishB.photoUrl} style={{ maxWidth: "100px" }} />
+        <img src={dishA.photoUrl} style={{ maxWidth: "100px" }} />
+      </div>
 
       <div className="d-flex align-items-center justify-content-between">
         <p className="comparison_meal">{dishB.name}</p>

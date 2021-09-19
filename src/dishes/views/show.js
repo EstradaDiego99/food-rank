@@ -36,6 +36,7 @@ export default function ShowDish() {
         return;
       }
       setDish(resGet.data.objDish);
+      console.log("AHIRAM", resGet.data.objDish);
       setReviews(resGet.data.reviews);
       setSimilarDishes(resGet.data.similarDishes);
     }

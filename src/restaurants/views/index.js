@@ -27,7 +27,7 @@ export default function RestaurantShow() {
     <>
       <Header></Header>
 
-      <div className="arrange">
+      <div className="arrange" style={{ overflow: "none" }}>
         <div className="filter"></div>
 
         <div className="left-col">
@@ -55,18 +55,6 @@ export default function RestaurantShow() {
           ) : (
             <h3>No restaurants found</h3>
           )}
-        </div>
-
-        <div className="right-col">
-          <h2 className="secondary-font">OUR RECOMMENDATIONS FOR YOU</h2>
-          <RecommendationsCard
-            mealname="MEAL 1"
-            photo
-            recommended
-            color="primary"
-          />
-          <RecommendationsCard mealname photo recommended color="secondary" />
-          <RecommendationsCard mealname photo recommended color="brown" />
         </div>
       </div>
     </>

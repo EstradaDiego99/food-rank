@@ -19,7 +19,6 @@ export default function DishCard(props) {
             <h3 className="mb-1">{props.name}</h3>
             <div className="d-flex mb-2">
               <img src={iconPlace} alt="" style={{ height: "1.5em" }} />
-              <h6>{props.restaurant.name}</h6>
             </div>
             {tags ? (
               <div className="tags">
