@@ -71,7 +71,7 @@ export default function DishShow() {
               })}
             </div>
           ) : (
-            <h3>No dishes found</h3>
+            <h3>Loading dishes...</h3>
           )}
         </div>
 
