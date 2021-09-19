@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import "./views/styles.css";
 
 import DishesNew from "./views/new";
+import ShowDish from "./views/show";
 // import DishesEdit from "./view/edit";
 
 /** Switch de las diferentes vistas para una entidad. */
@@ -11,7 +12,8 @@ export default function DishesRoutes() {
 
   return (
     <Switch>
-      <Route path={`${currRoute}/new`} exact component={DishesNew} />
+      <Route exact path={`${currRoute}/new`} component={DishesNew} />
+      <Route exact path={`${currRoute}/:id`} component={ShowDish} />
     </Switch>
   );
 }
