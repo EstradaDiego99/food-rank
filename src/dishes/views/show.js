@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { useParams, useHistory } from "react-router-dom";
 
 import axios from "../../utils/customAxios";
@@ -20,9 +21,14 @@ async function loadDish(id, setDishes) {
 export default function ShowDish() {
   const history = useHistory();
   const [dish, setDish] = useState(undefined);
+  const [tags, setTags] = useState();
 
   const { id } = useParams();
-  useEffect(() => loadDish(id, setDish), [id]);
+  useEffect(() => {
+  loadDish(id, setDish);
+  },[]);
+
+
 
   const accessToken = useContext(UserContext);
 
@@ -44,22 +50,36 @@ export default function ShowDish() {
 
   return (
     <main>
-      <p>{dish.name}</p>
-      <img src={dish.photoUrl} alt="" />
-      <p>{dish.price}</p>
-      <p>{dish.currency}</p>
+      <div className="image-dish">
+        <img className="img-dish" src={dish.photoUrl} alt="" />
+      </div>
+      <div className="align-center">
+        <h1>{dish.name}</h1>
+        <h2 className="blue-font">${dish.price} {dish.currency}</h2>
+            <div className="align-flex">
+              {dish.tags.map((tag)=>{
+                return(
+                  <p className="tag blue thin">{tag}</p>
+                )
+              })}
+            </div>
+        <Link>
+          <button
+            type="button"
+            className="my-buttons primary thicc"
+            data-toggle="modal"
+            data-target="#reviewModal"
+            onClick={() => console.log("nanika")}
+          >
+          Review meal
+        </button>
+       </Link>
+      </div>
 
-      <TagsList tags={dish.tags} />
 
-      <button
-        type="button"
-        className="btn btn-lg"
-        data-toggle="modal"
-        data-target="#reviewModal"
-        onClick={() => console.log("nanika")}
-      >
-        Review meal
-      </button>
+
+
+
 
       <ReviewForm dish={id} action={submitReview} />
     </main>

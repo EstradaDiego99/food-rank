@@ -25,9 +25,9 @@ export default function DishCard (props) {
                 {index <5 && 
                   <div>
                     {(index%2 == 0)? 
-                      <p className="tag primary" key="tag">{tag}</p>
+                      <p className="tag green" key="tag">{tag}</p>
                       :
-                      <p className="tag secondary" key="tag">{tag}</p>
+                      <p className="tag blue" key="tag">{tag}</p>
                     }
                   </div>
                 }
@@ -40,9 +40,9 @@ export default function DishCard (props) {
           <></>
           }
           <div className="address-res-card">
-            <p>
-              {props.address} {props.city} {props.state} {props.postalCode}
-            </p>
+            <h5>
+              ${props.price} {props.currency} 
+            </h5>
           </div>
         </div>
         <div className="image-res-card">

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "../../utils/customAxios";
 import { handleError } from "../../utils/front-functions";
 import altImage from "../../assets/foodAlt.jpg";
-//import DishCard from "../../dishes/views/dishCard";
+import DishCard from "../../dishes/views/dishCard";
 
 export default function RestaurantShow() {
   const [restaurant, setRestaurant] = useState(undefined);
@@ -19,7 +19,6 @@ export default function RestaurantShow() {
         handleError(resGet);
         return;
       }
-      console.log("Resget", resGet);
       setRestaurant(resGet.data.resFind);
       setDishes(resGet.data.resDishes);
       return;
@@ -32,12 +31,8 @@ export default function RestaurantShow() {
     return <></>;
   }
 
-  console.log("RESTAURANT", restaurant);
-  console.log("DISHES", dishes);
-
   return (
     <div className="arrange-show">
-
       <div className="pictures-res">
         <div className="pictures-res-1">
           {restaurant.yelpPhotosUrl[0]?
@@ -61,17 +56,37 @@ export default function RestaurantShow() {
           }
         </div> 
       </div>
+      <div className="align-center">
+        <h1>{restaurant.name}</h1>
+        <p>{restaurant.address} {restaurant.city} {restaurant.state} {restaurant.postalCode}</p>
+        <Link to={`dishes/new`}>
+          <button className="my-buttons primary">Go to admin</button>
+        </Link>
 
-      <h1>{restaurant.name}</h1>
-      <p>{restaurant.address} {restaurant.city} {restaurant.state} {restaurant.postalCode}</p>
-      <Link to={`dishes/new`}>
-        <button className="my-buttons primary">Add dishes</button>
-      </Link>
+      </div>
+  
       <div className="dishes-res">
+        <h2>MENU</h2>
+        <hr></hr>
         {dishes && dishes.length !==0 ?
-        <h1>YES</h1>
+        <div>
+          {dishes.map((dish)=>{
+          return(
+            <DishCard
+              id={dish._id}
+              elo={dish.elo}
+              tags={dish.tags}
+              restaurantId={dish.restaurantId}
+              name={dish.name}
+              price={dish.price}
+              currency={dish.currency}
+              photo = {dish.photoUrl}
+            />
+          )
+          })}
+        </div>
         :
-        <h1>NO</h1>
+        <h1>No dishes found</h1>
         }
       </div>
     </div>

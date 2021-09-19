@@ -78,7 +78,7 @@ export default function RestaurantShow() {
         mealname
         photo
         recommended
-        color="primary"
+        color="brown"
         />
       </div>
   

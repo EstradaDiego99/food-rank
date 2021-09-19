@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .arrange{
     display: flex;
     flex-direction: row;
@@ -74,7 +73,6 @@
     border-radius: 0px 15px 15px 0px;
   }
   
-=======
 .create-dish__div {
   display: flex;
   flex-direction: column;
@@ -102,4 +100,42 @@
 .form-control {
   padding: 20px !important;
 }
->>>>>>> Css of form-dishes
+
+.arrange-show{
+  margin-bottom: 5%;
+  padding-bottom: 5%;
+}
+
+.align-center{
+  text-align: center;
+
+}
+
+.align-flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.image-dish{
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 3%;
+}
+
+.img-dish{
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.thicc{
+  width: 150px;
+  height: 50px;
+}
+
+.thin{
+  width: 150px;
+  
+}

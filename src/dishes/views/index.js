@@ -23,7 +23,6 @@ export default function DishShow() {
 
   }, []);
 
-console.log(dishes[0].photoUrl);
 
   return (
     <div className="arrange">
@@ -77,7 +76,7 @@ console.log(dishes[0].photoUrl);
         mealname
         photo
         recommended
-        color="primary"
+        color="brown"
         />
       </div>
   
