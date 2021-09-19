@@ -17,9 +17,6 @@ export default function DishCard(props) {
         <div className="arrange-card">
           <div className="left-card">
             <h3 className="mb-1">{props.name}</h3>
-            <div className="d-flex mb-2">
-              <img src={iconPlace} alt="" style={{ height: "1.5em" }} />
-            </div>
             {props.restaurant && (
               <div className="d-flex mb-2">
                 <img src={iconPlace} alt="" style={{ height: "1.5em" }} />
