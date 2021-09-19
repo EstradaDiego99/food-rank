@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 
-export default function RestaurantCard (props) {
+export default function DishCard (props) {
 
   const [tags, setTags] = useState();
 
@@ -12,7 +12,7 @@ export default function RestaurantCard (props) {
   },[props.tags]);
 
   return ( 
-  <Link className="link" to={`/restaurants/${props.id}`}>
+  <Link className="link" to={`/dishes/${props.id}`}>
    <div className="Restaurant-card border-radius-1">
       <div className="arrange-card">
         <div className="left-card">
@@ -24,7 +24,7 @@ export default function RestaurantCard (props) {
                 <div>
                 {index <5 && 
                   <div>
-                    {(index%2 === 0)? 
+                    {(index%2 == 0)? 
                       <p className="tag green" key="tag">{tag}</p>
                       :
                       <p className="tag blue" key="tag">{tag}</p>
@@ -40,13 +40,13 @@ export default function RestaurantCard (props) {
           <></>
           }
           <div className="address-res-card">
-            <p>
-              {props.address} {props.city} {props.state} {props.postalCode}
-            </p>
+            <h5>
+              ${props.price} {props.currency} 
+            </h5>
           </div>
         </div>
         <div className="image-res-card">
-          <img alt="" className="image-res" src={props.photo}></img>
+          <img className="image-res" src={props.photo}></img>
         </div>
       </div>
     </div>

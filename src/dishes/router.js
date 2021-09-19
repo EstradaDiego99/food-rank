@@ -80,6 +80,22 @@ router.get("/:_id", cors(), async (req, res) => {
   return res.json(objFind);
 });
 
+router.get("/res-dishes/:_id", cors(), async (req, res) => {
+  const { _id } = req.params;
+  const resFind = await Dish.findOne(restaurantId = { _id }).catch((err) => err);
+  if (resFind instanceof Error) {
+    return res
+      .status(400)
+      .json({ msg: "There was an error reading from this dish." });
+  }
+  if (resFind === null) {
+    return res.status(400).json({ msg: "No dish with this id was found." });
+  }
+
+  const objFind = resFind.toObject();
+  return res.json(objFind);
+});
+
 // UPDATE
 router.put("/:_id", cors(), async (req, res) => {
   const { _id } = req.params;
